@@ -123,20 +123,20 @@ end
 oUF.Tags.Events['skaarj:color'] = 'UNIT_REACTION UNIT_HEALTH'
 
 oUF.Tags.Methods['long:name'] = function(u, r)
-    local name = UnitName(realUnit or u or r)
+    local name = tostring(UnitName(realUnit or u or r))
     return utf8sub(name, 15, false)
 end
 oUF.Tags.Events['long:name'] = 'UNIT_NAME_UPDATE'
 
 oUF.Tags.Methods['short:name'] = function(u, r)
-    local name = UnitName(realUnit or u or r)
+    local name = tostring(UnitName(realUnit or u or r))
     return utf8sub(name, 10, false)
 end
 oUF.Tags.Events['short:name'] = 'UNIT_NAME_UPDATE'
 
 oUF.Tags.Methods['veryshort:name'] = function(u, r)
-    local name = UnitName(realUnit or u or r)
-    return utf8sub(name, 5, false)
+    local name = tostring(UnitName(realUnit or u or r))
+    return utf8sub(name, 4, false)
 end
 oUF.Tags.Events['veryshort:name'] = 'UNIT_NAME_UPDATE'
 

@@ -19,7 +19,7 @@ cfg.raidIcons = mediaPath.."raidicons"
   
 cfg.scale = 1  
 
-cfg.party = true
+cfg.party = false
 cfg.raid = true
 cfg.boss = true
 cfg.tank = true
@@ -31,8 +31,8 @@ cfg.health_height = 30
 cfg.power_height = 3
 cfg.specific_power_height = 6
 -- raid
-cfg.raid_width = 60
-cfg.raid_health_height = 30
+cfg.raid_width = 140
+cfg.raid_health_height = 40
 cfg.raid_power_height = 3
 --boss
 cfg.boss_width = 170
@@ -71,7 +71,7 @@ cfg.AltPowerBar_Height = 12
                 Pet = { x=	  0, y=  -65},  
                Boss = { x=  -300,y=  250},  
                Tank = { x=	 10, y=  100},  
-               Raid = { x=	 10, y=  -10},   
+               Raid = { x=	 0, y=  -200},   
 	          Party = { x=	 10, y=  250},
               Arena = { x= -300, y=  250},			  
 }

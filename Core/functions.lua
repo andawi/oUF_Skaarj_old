@@ -12,7 +12,7 @@ framebd = function(parent, anchor)
     edgeFile = "Interface\\AddOns\\Media\\glowTex", edgeSize = 5,
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
     insets = {left = 3, right = 3, top = 3, bottom = 3}})
-    frame:SetBackdropColor(.05, .05, .05)
+    frame:SetBackdropColor(.05, .05, .05, 0.60)
     frame:SetBackdropBorderColor(0, 0, 0)
     return frame
 end

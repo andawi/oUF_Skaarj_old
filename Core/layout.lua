@@ -4,7 +4,7 @@ local _, class = UnitClass('player')
 
 local backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-    insets = {top = 0, left = 0, bottom = 0, right = 0},
+    insets = {top = 1, left = 1, bottom = 1, right = 1},
 }
 
 local backdrop_1px = {
@@ -19,23 +19,30 @@ end
 
 local OnLeave = function(self)
     UnitFrame_OnLeave(self)
-    self.Highlight:Hide()	
+    if not UnitIsUnit('target', self.unit) then self.Highlight:Hide() end
 end
+
+
+local range = {
+        insideAlpha = 1,
+        outsideAlpha = .25,
+    }
+
 
 local Highlight = function(self) 
     self.Highlight = self.Health:CreateTexture(nil, "OVERLAY")
-    self.Highlight:SetAllPoints(self)
+    self.Highlight:SetAllPoints(self.Health)
     self.Highlight:SetTexture([=[Interface\Buttons\WHITE8x8]=])
-    self.Highlight:SetVertexColor(1,1,1,.1)
+    self.Highlight:SetVertexColor(1,1,1,.05)
     self.Highlight:SetBlendMode("ADD")
     self.Highlight:Hide()
 end
 	
 local ChangedTarget = function(self)
     if UnitIsUnit('target', self.unit) then
-        self.TargetBorder:Show()
+        self.Highlight:Show()
     else
-        self.TargetBorder:Hide()
+        self.Highlight:Hide()
     end
 end
 
@@ -356,14 +363,14 @@ local Shared = function(self, unit)
 
     self.menu = menu
 	
-	self:SetBackdrop(backdrop)
-	self:SetBackdropColor(0, 0, 0)
+	--self:SetBackdrop(backdrop)
+	--self:SetBackdropColor(0, 0, 0, 1)
 	
     self:SetScript("OnEnter", OnEnter)
     self:SetScript("OnLeave", OnLeave)
     self:RegisterForClicks"AnyUp"
 	
-    self.framebd = framebd(self, self)
+    self.framebd = framebd(self, self)		--extra Frame Backdrop...
 	
 	self.DebuffHighlight = cfg.DebuffHighlight
 	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
@@ -372,6 +379,7 @@ local Shared = function(self, unit)
     h:SetPoint"TOP"
 	h:SetPoint"LEFT"
 	h:SetPoint"RIGHT"
+	
 	
 	local hbg = h:CreateTexture(nil, "BACKGROUND")
     hbg:SetAllPoints(h)
@@ -384,8 +392,10 @@ local Shared = function(self, unit)
         h.colorReaction = true
 		hbg.multiplier = .2
 	else
-		hbg:SetVertexColor(.5, .5, .5, .2)
+		hbg:SetVertexColor(.5, .5, .5, .5)
     end
+	
+	
 	
 	if cfg.Smooth then h.Smooth = true end
 	
@@ -420,7 +430,7 @@ local Shared = function(self, unit)
 	
 	local l = h:CreateTexture(nil, "OVERLAY")
 	if (unit == "raid") then
-	    l:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -1, -2)
+	    l:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -1, -4)
         l:SetSize(10, 10)
 	else
 	    l:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -2, -4)
@@ -439,7 +449,7 @@ local Shared = function(self, unit)
 
 	local a = h:CreateTexture(nil, "OVERLAY")
 	if (unit == "raid") then
-	    a:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -1, -2)
+	    a:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -1, -4)
         a:SetSize(10, 10)
 	else
 	    a:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -2, -4)
@@ -450,7 +460,7 @@ local Shared = function(self, unit)
 	local rc = h:CreateTexture(nil, "OVERLAY")
 	rc:SetSize(14, 14)
 	if (unit == "raid") then
-	    rc:SetPoint("BOTTOM", h)
+	    rc:SetPoint("CENTER", self)
 	else
         rc:SetPoint("CENTER", h)
 	end
@@ -1020,11 +1030,27 @@ local UnitSpecific = {
     raid = function(self, ...)
 		Shared(self, ...)
 		
+		
+		self.Health:ClearAllPoints()
+		self.Power:ClearAllPoints()
+		
 		self.Health:SetHeight(cfg.raid_health_height)
 		self.Power:SetHeight(cfg.raid_power_height)
 		
+		
+		self.Power:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0) 
+		self.Power:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -0, 0)
+		
+		self.Health:SetPoint('BOTTOMLEFT', self.Power, 0, cfg.raid_power_height+1)
+		self.Health:SetPoint('BOTTOMRIGHT', self.Power, 0, cfg.raid_power_height+1)
+		self.Health:SetHeight(22)
+		
+		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}
+		self.Health.colorSmooth = true
+		
+		
 		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-		name:SetPoint("LEFT", self.Health, 6, 5)
+		name:SetPoint("TOPLEFT", self.Health, 2, -2)
 	    name:SetJustifyH"LEFT"
 		if cfg.class_colorbars then
 	        self:Tag(name, '[veryshort:name]')
@@ -1202,22 +1228,22 @@ oUF:Factory(function(self)
 	
 	    self:SetActiveStyle'Skaarj - Raid'
 	
-	    local raid = oUF:SpawnHeader(nil, nil, "custom [@raid6,exists] show; hide", --"custom [@raid6,exists] show; hide"
+	    local raid = oUF:SpawnHeader(nil, nil, "custom [@raid6,exists] show; show", --"custom [@raid6,exists] show; hide"
         'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.raid_width, cfg.raid_health_height+cfg.raid_power_height+1),
         'showPlayer', true,
         'showSolo', false,
-        'showParty', false,
+        'showParty', true,
         'showRaid', true,
         'xoffset', 5,
-        'yOffset', -5,
-        'point', "TOP",
+        'yOffset', -15,
+        'point', "LEFT",
         'groupFilter', '1,2,3,4,5,6,7,8',
-        'groupingOrder', '1,2,3,4,5,6,7,8',
+        'groupingOrder', 'MAINTANK,TANK,DAMAGER,HEALER',	--MAINTANK = 1, MAINASSIST = 2, TANK = 3, HEALER = 4, DAMAGER = 5, NONE = 6
         'groupBy', 'GROUP',
         'maxColumns', 8,
         'unitsPerColumn', 5,
         'columnSpacing', 5,
-        'columnAnchorPoint', "LEFT")
-        raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", cfg.unit_positions.Raid.x, cfg.unit_positions.Raid.y)
+        'columnAnchorPoint', "TOP")
+        raid:SetPoint("CENTER", UIParent, "CENTER", cfg.unit_positions.Raid.x, cfg.unit_positions.Raid.y)
 	end
 end)
