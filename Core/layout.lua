@@ -439,7 +439,7 @@ local Shared = function(self, unit)
     hbg:SetAllPoints(h)
     hbg:SetTexture(cfg.texture)
    
-    h.frequentUpdates = false
+    h.frequentUpdates = true
 	
 	if cfg.class_colorbars then
         h.colorClass = true
@@ -1147,7 +1147,7 @@ local UnitSpecific = {
         self:Tag(htext, '[skaarj:info]')		
 		
 		local lfd = fs(self.Health, "OVERLAY", cfg.symbol, 8, "", 1, 1, 1)
-		lfd:SetPoint("BOTTOMLEFT", 6, 0)
+		lfd:SetPoint("TOPLEFT", 27, -4)
 	    self:Tag(lfd, '[skaarj:LFD]')	
 		
 		self.RaidIcon:SetSize(20, 20)
@@ -1322,7 +1322,7 @@ oUF:Factory(function(self)
         'yOffset', -15,
         'point', "LEFT",
         'groupFilter', '1,2,3,4,5,6,7,8',
-        'groupingOrder', 'MAINTANK,TANK,DAMAGER,HEALER',	--MAINTANK = 1, MAINASSIST = 2, TANK = 3, HEALER = 4, DAMAGER = 5, NONE = 6
+        'groupingOrder', 'MAINTANK',
         'groupBy', 'GROUP',
         'maxColumns', 8,
         'unitsPerColumn', 5,

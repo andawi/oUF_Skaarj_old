@@ -264,7 +264,7 @@ oUF.Tags.Methods['skaarj:DA'] = function(u)
   	
 	if fromwho == 'player' then 
 		
-		remainingAbsorbAmount = select(14, UnitAura(u, "Divine Aegis"))
+		remainingAbsorbAmount = select(15, UnitAura(u, "Divine Aegis"))
 		if remainingAbsorbAmount then 
 			spellTimer = GetTime()-expirationTime
 			if spellTimer > -3.35 then
@@ -287,10 +287,10 @@ oUF.Tags.Methods['skaarj:SS'] = function(u)
 	
 	if fromwho == 'player' then 		
 		if UnitName(u) == UnitName('player') then
-			remainingAbsorbAmount = select(14, UnitAuraByID(u, 114908))	--need to scan all 40 buffs
+			remainingAbsorbAmount = select(15, UnitAuraByID(u, 114908))	--need to scan all 40 buffs
 			DA, _,_,_,_,_, expirationTime, fromwho,_,_,spellID = UnitAuraByID(u, 114908)
 		else
-			remainingAbsorbAmount = select(14, UnitAura(u, "Spirit Shell")) 
+			remainingAbsorbAmount = select(15, UnitAura(u, "Spirit Shell")) 
 		end
 
 		if remainingAbsorbAmount then 
