@@ -106,25 +106,6 @@ local FormatTime = function(s)
     return format("%d", fmod(s, minute))
 end
 
-local CreateAuraTimer = function(self,elapsed)
-    self.elapsed = (self.elapsed or 0) + elapsed
-	if self.elapsed >= 0.1 then
-		self.timeLeft = self.expires - GetTime()
-		if self.timeLeft > 0 then
-			local time = FormatTime(self.timeLeft)
-				self.remaining:SetText(time)
-			if self.timeLeft < 6 then
-				self.remaining:SetTextColor(0.69, 0.31, 0.31)
-			else
-				self.remaining:SetTextColor(0.84, 0.75, 0.65)
-			end
-		else
-			self.remaining:Hide()
-			self:SetScript("OnUpdate", nil)
-		end
-		self.elapsed = 0
-	end
-end
 
 
 local UpdateAuraTrackerTime = function(self, elapsed)
@@ -150,6 +131,8 @@ local auraIcon = function(auras, button)
     c:SetFont(cfg.aura_font, cfg.aura_fontsize, cfg.aura_fontflag)
     c:SetTextColor(.8, .8, .8)
     auras.disableCooldown = cfg.disableCooldown
+	button.cd:SetReverse()  	--inverse cooldown spiral
+	button.cd.noCooldownCount = true	--prevent OmniCC from showing CD counter in this button
     button.icon:SetTexCoord(.1, .9, .1, .9)
 	if cfg.border then
         auras.showDebuffType = true
@@ -174,9 +157,7 @@ local auraIcon = function(auras, button)
         button.glow:SetBackdrop({bgFile = "", edgeFile = "Interface\\AddOns\\Media\\glowTex",
         edgeSize = 5,insets = {left = 3,right = 3,top = 3,bottom = 3,},})
 	end
-    local remaining = fs(button, "OVERLAY", cfg.aura_font, cfg.aura_fontsize, cfg.aura_fontflag, .8, .8, .8)
-    remaining:SetPoint("TOPLEFT")
-    button.remaining = remaining
+   
 end
 
 local PostUpdateIcon = function(icons, unit, icon, index, offset)
@@ -189,11 +170,6 @@ local PostUpdateIcon = function(icons, unit, icon, index, offset)
 		texture:SetDesaturated(true)
 	end
 
-	if duration and duration > 0 then
-		icon.remaining:Show()
-	else
-		icon.remaining:Hide()
-	end
 		
 	if not cfg.border then
 		if icon.isDebuff then
@@ -206,7 +182,7 @@ local PostUpdateIcon = function(icons, unit, icon, index, offset)
 		
     icon.duration = duration
     icon.expires = expirationTime
-    icon:SetScript("OnUpdate", CreateAuraTimer)
+
     
 end
 

@@ -11,6 +11,7 @@ cfg.font, cfg.fontsize, cfg.shadowoffsetX, cfg.shadowoffsetY, cfg.fontflag = med
 cfg.symbol = mediaPath.."symbol.ttf"
 cfg.buttonTex = mediaPath.."gloss"
 cfg.raidIcons = mediaPath.."raidicons"
+
   
   -----------------------------
   -- Unit Frames 
@@ -82,7 +83,7 @@ cfg.AltPowerBar_Height = 12
 cfg.auras = true  -- disable all auras
 cfg.border = false
 cfg.onlyShowPlayer = false -- only show player debuffs on target
-cfg.disableCooldown = true -- hide omniCC
+cfg.disableCooldown = false -- hide Cooldown Spiral
 cfg.aura_font, cfg.aura_fontsize, cfg.aura_fontflag = mediaPath.."pixel.ttf", 8, "Outlinemonochrome" 
 cfg.player_debuffs_num = 18
 cfg.target_debuffs_num = 18
