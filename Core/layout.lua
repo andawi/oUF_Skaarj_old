@@ -495,13 +495,13 @@ local UnitSpecific = {
 		
 		if cfg.auras then
             local d = CreateFrame("Frame", nil, self)
-			d.size = 24
+			d.size = 38
 			d.spacing = 4
 			d.num = cfg.player_debuffs_num 
-            d:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 1, 7)
+            d:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", -8, 0)
 			d:SetSize(cfg.width, d.size)
-            d.initialAnchor = "TOPLEFT"
-            d["growth-y"] = "UP"
+            d.initialAnchor = "BOTTOMRIGHT"
+            d["growth-x"] = "LEFT"
             d.PostCreateIcon = auraIcon
             d.PostUpdateIcon = PostUpdateIcon
             d.CustomFilter = CustomFilter
