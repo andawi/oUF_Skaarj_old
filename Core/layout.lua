@@ -279,22 +279,32 @@ local createAuraWatch = function(self, unit)
 		for i, v in pairs(cfg.spellIDs[class]) do
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = v[1]
-			icon:SetSize(6, 6)
+			icon:SetSize(10, 10)
 			if v[3] then
 			    icon:SetPoint(v[3])
 			else
 			    icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
 			end
-			icon:SetBackdrop(backdrop_1px)
-	        icon:SetBackdropColor(0, 0, 0, 1)
+			--icon:SetBackdrop(backdrop_1px)
+	        --icon:SetBackdropColor(0, 0, 0, 1)
 			
+			--[[
 			local tex = icon:CreateTexture(nil, 'ARTWORK')
 			tex:SetAllPoints(icon)
 			tex:SetTexCoord(.1, .9, .1, .9)
 			tex:SetTexture(cfg.texture)
 			tex:SetVertexColor(unpack(v[2]))
 			icon.icon = tex
-		
+			]]
+			local name, _, image = GetSpellInfo(v[1])
+			local tex = icon:CreateTexture(nil, "OVERLAY")
+			tex:SetTexCoord(.07, .93, .07, .93)
+			tex:SetAllPoints(icon)
+			tex:SetTexture(image)
+			icon.icon = tex
+			
+			
+			
 			auras.icons[v[1]] = icon
 		end
 		self.AuraWatch = auras
@@ -1050,7 +1060,7 @@ local UnitSpecific = {
 		
 		
 		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-		name:SetPoint("TOPLEFT", self.Health, 2, -2)
+		name:SetPoint("TOPLEFT", self.Health, 3, -4)
 	    name:SetJustifyH"LEFT"
 		if cfg.class_colorbars then
 	        self:Tag(name, '[veryshort:name]')

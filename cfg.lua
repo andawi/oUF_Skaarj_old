@@ -137,7 +137,7 @@ cfg.spellIDs = {
 	},
 	PRIEST = {
 	{33076, {0.2, 0.7, 0.2}},			-- Prayer of Mending
-	{33206, {0.89, 0.1, 0.1}},			-- Pain Suppress
+	{33206, {0.89, 0.1, 0.1}, "CENTER"},			-- Pain Suppress
 	{47788, {0.86, 0.52, 0}},			-- Guardian Spirit
 	{6788, {1, 0, 0}, "BOTTOMLEFT"},	-- Weakened Soul
 	{17, {0.81, 0.85, 0.1}, "TOPLEFT"},	-- Power Word: Shield
