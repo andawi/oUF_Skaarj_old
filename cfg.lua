@@ -51,7 +51,7 @@ cfg.pet_height = 30
 
 cfg.disableRaidFrameManager = true
 cfg.portraits = false
-cfg.healcomm = false
+cfg.healcomm = true
 cfg.specific_power = true
 
 cfg.AltPowerBar = true
@@ -61,9 +61,9 @@ cfg.AltPowerBar_Height = 12
 
 -- Unit Frames Positions
 
- cfg.unit_positions = { 				
-             Player = { x= -260, y= -300},  
-             Target = { x=	260, y= -300},  
+ cfg.unit_positions = {
+             Player = { x= -450, y= -60},  
+             Target = { x=	450, y= -60},  
        Targettarget = { x=    0, y=  -65},  
               Focus = { x= -260, y=  100},  
         Focustarget = { x=    0, y=  -65},  
