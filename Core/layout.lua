@@ -407,7 +407,7 @@ local Shared = function(self, unit)
         h.colorReaction = true
 		hbg.multiplier = .2
 	else
-		hbg:SetVertexColor(.5, .5, .5, .5)
+		hbg:SetVertexColor(.5, .5, .5, .25)
     end
 	
 	
@@ -418,6 +418,10 @@ local Shared = function(self, unit)
     self.Health = h
 	h.PostUpdate = PostUpdateHealth
 
+	
+		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}
+		self.Health.colorSmooth = true
+	
     if not (unit == "targettarget" or unit == "pet" or unit == "focustarget") then
         local p = createStatusbar(self, cfg.texture, nil, nil, nil, 1, 1, 1, 1)
 		p:SetPoint"LEFT"
@@ -445,7 +449,7 @@ local Shared = function(self, unit)
 	
 	local l = h:CreateTexture(nil, "OVERLAY")
 	if (unit == "raid") then
-	    l:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -1, -4)
+	    l:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", -1, -4)
         l:SetSize(10, 10)
 	else
 	    l:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -2, -4)
@@ -470,7 +474,7 @@ local Shared = function(self, unit)
 	    a:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -2, -4)
         a:SetSize(16, 16)
 	end
-	self.Assistant = a
+	--self.Assistant = a
 
 	local rc = h:CreateTexture(nil, "OVERLAY")
 	rc:SetSize(14, 14)
@@ -1053,11 +1057,11 @@ local UnitSpecific = {
 		self.Power:SetHeight(cfg.raid_power_height)
 		
 		
-		self.Power:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0) 
-		self.Power:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -0, 0)
+		self.Power:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 1, 0) 
+		self.Power:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -1, 0)
 		
-		self.Health:SetPoint('BOTTOMLEFT', self.Power, 0, cfg.raid_power_height+1)
-		self.Health:SetPoint('BOTTOMRIGHT', self.Power, 0, cfg.raid_power_height+1)
+		self.Health:SetPoint('BOTTOMLEFT', self.Power, 1, cfg.raid_power_height+1)
+		self.Health:SetPoint('BOTTOMRIGHT', self.Power, -1, cfg.raid_power_height+1)
 		self.Health:SetHeight(22)
 		
 		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}

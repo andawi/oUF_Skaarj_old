@@ -98,8 +98,8 @@ cfg.DruidMana = true
 
  --RaidDebuffs
 cfg.RaidDebuffs = true
-cfg.ShowDispelableDebuff = true
-cfg.FilterDispellableDebuff = true 
+cfg.ShowDispelableDebuff = false
+cfg.FilterDispellableDebuff = false 
 cfg.MatchBySpellName = false
 
 --DebuffHighlight
