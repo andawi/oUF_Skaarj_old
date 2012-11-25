@@ -1103,7 +1103,7 @@ local UnitSpecific = {
 		
 		self.Health:SetPoint('BOTTOMLEFT', self.Power, 1, cfg.raid_power_height+1)
 		self.Health:SetPoint('BOTTOMRIGHT', self.Power, -1, cfg.raid_power_height+1)
-		self.Health:SetHeight(22)
+		self.Health:SetHeight(20)
 		
 		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}
 		self.Health.colorSmooth = true
@@ -1123,11 +1123,11 @@ local UnitSpecific = {
 		htext.frequentUpdates = true
         self:Tag(htext, '[skaarj:info]')		
 		
-		local lfd = fs(self.Health, "OVERLAY", cfg.symbol, 12, "", 1, 1, 1)
-		lfd:SetPoint("BOTTOMLEFT", 6, 1)
+		local lfd = fs(self.Health, "OVERLAY", cfg.symbol, 8, "", 1, 1, 1)
+		lfd:SetPoint("BOTTOMLEFT", 6, 0)
 	    self:Tag(lfd, '[skaarj:LFD]')	
 		
-		self.RaidIcon:SetSize(14, 14)
+		self.RaidIcon:SetSize(20, 20)
 	    self.RaidIcon:SetPoint("TOP", self.Health, 2, 7)
 		
 		if cfg.healcomm then Healcomm(self) end
@@ -1156,14 +1156,14 @@ local UnitSpecific = {
 			debuffs:SetFrameStrata('TOOLTIP')
 			debuffs.initialAnchor = "RIGHT"
 			debuffs["growth-x"] = "LEFT"
-			debuffs:SetHeight(20)
+			debuffs:SetHeight(18)
 			debuffs:SetWidth(5 * 20)
 			debuffs.num = 5
 			debuffs.spacing = 1
-			debuffs.size = 20
+			debuffs.size = 18
 			debuffs.CustomFilter = CustomDebuffFilter
-			--debuffs.PostCreateIcon = PostCreateAuraIcon
-			--debuffs.PostUpdateIcon = PostUpdateDebuffIcon
+			debuffs.PostCreateIcon = auraIcon
+            debuffs.PostUpdateIcon = PostUpdateIcon
 		self.Debuffs = debuffs
 		
 		

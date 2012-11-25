@@ -22,7 +22,7 @@ cfg.scale = 1
 cfg.party = false
 cfg.raid = true
 cfg.boss = true
-cfg.tank = true
+cfg.tank = false
 cfg.arena = true
   
 --player, target, focus 

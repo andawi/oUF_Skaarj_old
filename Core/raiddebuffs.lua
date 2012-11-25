@@ -8,6 +8,8 @@ ORD.ShowDispelableDebuff = cfg.ShowDispelableDebuff
 ORD.FilterDispellableDebuff = cfg.FilterDispellableDebuff
 ORD.MatchBySpellName = cfg.MatchBySpellName
 
+
+
 local RaidDebuffs = {
 -- "Vault of Archavon"
 	--Koralon
