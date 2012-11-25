@@ -98,7 +98,7 @@ cfg.DruidMana = true
 
  --RaidDebuffs
 cfg.RaidDebuffs = true
-cfg.ShowDispelableDebuff = false
+cfg.ShowDispelableDebuff = true
 cfg.FilterDispellableDebuff = false 
 cfg.MatchBySpellName = false
 
@@ -169,6 +169,83 @@ cfg.spellIDs = {
 	},
  }
  
+ 
+ cfg.debuffFilter = {		--Debuff Filter (Blacklist)
+		
+		-- Class
+		['Weakened Soul'] = true,
+		
+		
+		--Misc
+		
+		
+		['Tricked or Treated'] = true,
+		['Upset Tummy'] = true,
+		['Deserter'] = true,
+		['Vault of Archavon Closure Warning'] = true,
+		['Dungeon Cooldown'] = true,
+		['Dungeon Deserter'] = true,
+		['Flight Orders'] = true,
+		['Sample Satisfaction'] = true,
+		['Totem of Wrath'] = true,
+		['Void-Touched'] = true, 
+		['Recently Mass Resurrected'] = true,
+		['Master Adventurer Award'] = true, 
+		
+		['Eck Residue'] = true,
+		['Weakened Heart'] = true,
+		
+		--World Events
+		['Mistletoe'] = true,
+		
+		-- Mage
+		['Arcane Blast'] = true,
+		['Hypothermia'] = true,
+		
+		--Shaman
+		['Sated'] = true,
+		
+		--Mage
+		['Temporal Displacement'] = true,
+		
+		--Pala
+		['Forbearance'] = true,
+		['Ardent Defender'] = true,
+		
+		--ToC
+		['Light Essence'] = true,
+		['Dark Essence'] = true,
+		['Leeching Swarm'] = true,
+		['Permafrost'] = true,
+		
+		['Powering Up'] = true,
+		
+		--ICC
+		['Chill of the Throne'] = true,
+		['Green Blight Residue'] =true,
+		
+			--Saurfang
+			['Scent of Blood'] = true,
+		
+			-- Festergut
+			['Blighted Spores'] = true,
+			--['Inoculated'] = true,
+			['Orange Blight Residue'] = true,
+			
+			-- Sindragosa
+			['Frost Aura'] = true,
+			--['Mystic Buffet'] = true,
+			['Chilled to the Bone'] = true,
+			-- LK hc
+			['Harvest Soul'] = true,
+			
+			
+		--T13
+		['Degradation'] = true,
+		
+		['Transporter Malfunction'] = true,
+			
+	}
  
   -----------------------------
   -- Colors 

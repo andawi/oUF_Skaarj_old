@@ -268,6 +268,16 @@ local AWIcon = function(AWatch, icon, spellID, name, self)
 	icon.cd:SetReverse(true)
 end
 
+local CustomDebuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster)
+	
+	if not cfg.debuffFilter[name] then
+		return true		-- true = visible
+	end
+		
+end
+
+
+
 local createAuraWatch = function(self, unit)
 	if cfg.showAuraWatch then
 		local auras = CreateFrame("Frame", nil, self)
@@ -334,6 +344,35 @@ local Resurrect = function(self)
 end
 
 local Healcomm = function(self) 
+	
+	local mhpb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
+	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, -1)
+	--mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 1)
+	--mhpb:SetWidth(10)
+	mhpb:SetHeight(self.Health:GetHeight()*0.5)
+	--mhpb:SetStatusBarTexture(predhealthtex)
+	mhpb:SetStatusBarColor(0, 1, 0, 0.33)
+	
+	local ohpb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
+	--ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
+	ohpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 1)
+	--ohpb:SetWidth(10)
+	ohpb:SetHeight(self.Health:GetHeight()*0.5)
+	--ohpb:SetStatusBarTexture(predhealthtex)
+	ohpb:SetStatusBarColor(0, 1, 0, 0.25)
+	
+	self.HealPrediction = {
+		myBar = mhpb,
+		otherBar = ohpb,
+		maxOverflow = 1.25,
+	}
+	
+	self.MyHealBar = mhpb
+	self.OtherHealBar = ohpb
+	
+	
+	
+	--[[
 	local mhb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
 	mhb:SetPoint("TOPLEFT", self.Health:GetStatusBarTexture(), "TOPRIGHT")
 	mhb:SetPoint("BOTTOMLEFT", self.Health:GetStatusBarTexture(), "BOTTOMRIGHT")
@@ -349,6 +388,8 @@ local Healcomm = function(self)
 			
 	self.MyHealBar = mhb
 	self.OtherHealBar = ohb
+	
+	]]
 end
 
 local Setfocus = function(self) 
@@ -1110,6 +1151,22 @@ local UnitSpecific = {
 		   self.RaidDebuffs = d
 	    end
 
+		local debuffs = CreateFrame("Frame", nil, self)
+			debuffs:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 4, 3)
+			debuffs:SetFrameStrata('TOOLTIP')
+			debuffs.initialAnchor = "RIGHT"
+			debuffs["growth-x"] = "LEFT"
+			debuffs:SetHeight(20)
+			debuffs:SetWidth(5 * 20)
+			debuffs.num = 5
+			debuffs.spacing = 1
+			debuffs.size = 20
+			debuffs.CustomFilter = CustomDebuffFilter
+			--debuffs.PostCreateIcon = PostCreateAuraIcon
+			--debuffs.PostUpdateIcon = PostUpdateDebuffIcon
+		self.Debuffs = debuffs
+		
+		
 		local tborder = CreateFrame("Frame", nil, self)
         tborder:SetPoint("TOPLEFT", self, "TOPLEFT")
         tborder:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT")
