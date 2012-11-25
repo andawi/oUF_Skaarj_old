@@ -29,6 +29,7 @@ local range = {
     }
 
 
+
 local Highlight = function(self) 
     self.Highlight = self.Health:CreateTexture(nil, "OVERLAY")
     self.Highlight:SetAllPoints(self.Health)
@@ -381,6 +382,10 @@ local Shared = function(self, unit)
     self:RegisterForClicks"AnyUp"
 	
     self.framebd = framebd(self, self)		--extra Frame Backdrop...
+	
+	
+	self.Range = range
+	
 	
 	self.DebuffHighlight = cfg.DebuffHighlight
 	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
