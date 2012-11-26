@@ -31,14 +31,15 @@ local range = {
 
 
 local Highlight = function(self) 
-    self.Highlight = self.Health:CreateTexture(nil, "OVERLAY")
-    self.Highlight:SetAllPoints(self.Health)
-    self.Highlight:SetTexture([=[Interface\Buttons\WHITE8x8]=])
-    self.Highlight:SetVertexColor(1,1,1,.05)
-    self.Highlight:SetBlendMode("ADD")
-    self.Highlight:Hide()
+    self.Highlight = self:CreateTexture(nil, 'HIGHLIGHT')
+	self.Highlight:SetAllPoints(self)
+	self.Highlight:SetBlendMode('ADD')
+	self.Highlight:SetTexture(cfg.highlightBorder)
+	self.Highlight:SetVertexColor(1, 1, 1, 0.25)
 end
-	
+
+
+
 local ChangedTarget = function(self)
     if UnitIsUnit('target', self.unit) then
         self.Highlight:Show()
@@ -425,10 +426,20 @@ local Shared = function(self, unit)
 	
 	
 	self.Range = range
-	
-	
+
+
 	self.DebuffHighlight = cfg.DebuffHighlight
 	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
+	
+	self.DebuffHighlight = self.Health:CreateTexture(nil, 'OVERLAY')
+	self.DebuffHighlight:SetAllPoints(self.Health)
+	self.DebuffHighlight:SetTexture(DBHTEX)
+	self.DebuffHighlight:SetVertexColor(0, 0, 0, 0)
+	self.DebuffHighlight:SetBlendMode('ADD')
+	self.DebuffHighlightAlpha = 1
+	self.DebuffHighlightFilter = true
+	
+	
 
     local h = createStatusbar(self, cfg.texture, nil, nil, nil, cfg.Color.Health.r, cfg.Color.Health.g, cfg.Color.Health.b, 1)
     h:SetPoint"TOP"
@@ -1134,22 +1145,7 @@ local UnitSpecific = {
 		Resurrect(self)
 		createAuraWatch(self)
 		
-	    if cfg.RaidDebuffs then
-	       local d = CreateFrame('Frame', nil, self)
-	       d:SetSize(22, 22)
-	       d:SetPoint('CENTER', self)
-	       d:SetFrameStrata'HIGH'
-	       d:SetBackdrop(backdrop_1px)
-	       d.icon = d:CreateTexture(nil, 'OVERLAY')
-	       d.icon:SetTexCoord(.1,.9,.1,.9)
-	       d.icon:SetAllPoints(d)
-	       d.time = fs(d, "OVERLAY", cfg.aura_font, cfg.aura_fontsize, cfg.aura_fontflag, 0.8, 0.8, 0.8)
-	       d.time:SetPoint('TOPLEFT', d, 'TOPLEFT', 0, 0)
-		   d.count = fs(d, "OVERLAY", cfg.aura_font, cfg.aura_fontsize, cfg.aura_fontflag, 0.8, 0.8, 0.8)
-	       d.count:SetPoint('BOTTOMRIGHT', d, 'BOTTOMRIGHT', 2, 0)
-		   self.RaidDebuffs = d
-	    end
-
+	    
 		local debuffs = CreateFrame("Frame", nil, self)
 			debuffs:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 4, 3)
 			debuffs:SetFrameStrata('TOOLTIP')

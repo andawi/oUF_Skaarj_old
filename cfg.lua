@@ -12,6 +12,10 @@ cfg.symbol = mediaPath.."symbol.ttf"
 cfg.buttonTex = mediaPath.."gloss"
 cfg.raidIcons = mediaPath.."raidicons"
 
+local mediaPathN = "Interface\\AddOns\\oUF_heal\\media\\"
+local cfg.highlightBorder = mediaPathN..'highlightBorder'
+
+
   
   -----------------------------
   -- Unit Frames 
@@ -95,12 +99,6 @@ cfg.target_buffs_num = 8
   
 cfg.Smooth = true
 cfg.DruidMana = true
-
- --RaidDebuffs
-cfg.RaidDebuffs = true
-cfg.ShowDispelableDebuff = true
-cfg.FilterDispellableDebuff = false 
-cfg.MatchBySpellName = false
 
 --DebuffHighlight
 cfg.DebuffHighlight = true
