@@ -32,7 +32,7 @@ cfg.power_height = 3
 cfg.specific_power_height = 6
 -- raid
 cfg.raid_width = 140
-cfg.raid_health_height = 40
+cfg.raid_health_height = 38
 cfg.raid_power_height = 3
 --boss
 cfg.boss_width = 170
@@ -136,12 +136,17 @@ cfg.spellIDs = {
 	{53563, {0.7, 0.3, 0.7}, "TOPRIGHT"},   -- Beacon of Light
 	},
 	PRIEST = {
-	{33076, {0.2, 0.7, 0.2}},			-- Prayer of Mending
-	{33206, {0.89, 0.1, 0.1}, "CENTER"},			-- Pain Suppress
-	{47788, {0.86, 0.52, 0}},			-- Guardian Spirit
-	{6788, {1, 0, 0}, "BOTTOMLEFT"},	-- Weakened Soul
-	{17, {0.81, 0.85, 0.1}, "TOPLEFT"},	-- Power Word: Shield
-	{139, {0.4, 0.7, 0.2}, "TOPRIGHT"}, -- Renew
+	{77613, 15, 1, 1},				-- Grace
+	{33076, 15, 19, 1},				-- Prayer of Mending
+	{17, 15, 36, 1},				-- Power Word: Shield
+	{139, 15, 52, 1}, 				-- Renew
+	{47788, 30, 50, -15},			-- Guardian Spirit
+	{33206, 30, 50, -15},			-- Pain Suppress
+	
+	
+	{6788, 20, 34,-22 },			-- Weakened Soul
+	
+	
 	},
 	SHAMAN = {
 	{974, {0.2, 0.7, 0.2}},				  -- Earth Shield

@@ -290,23 +290,14 @@ local createAuraWatch = function(self, unit)
 		for i, v in pairs(cfg.spellIDs[class]) do
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = v[1]
-			icon:SetSize(10, 10)
+			icon:SetSize(v[2], v[2])
+			
 			if v[3] then
-			    icon:SetPoint(v[3])
+			    icon:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', v[3], v[4])
 			else
 			    icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
 			end
-			--icon:SetBackdrop(backdrop_1px)
-	        --icon:SetBackdropColor(0, 0, 0, 1)
-			
-			--[[
-			local tex = icon:CreateTexture(nil, 'ARTWORK')
-			tex:SetAllPoints(icon)
-			tex:SetTexCoord(.1, .9, .1, .9)
-			tex:SetTexture(cfg.texture)
-			tex:SetVertexColor(unpack(v[2]))
-			icon.icon = tex
-			]]
+	
 			local name, _, image = GetSpellInfo(v[1])
 			local tex = icon:CreateTexture(nil, "OVERLAY")
 			tex:SetTexCoord(.07, .93, .07, .93)
@@ -314,6 +305,12 @@ local createAuraWatch = function(self, unit)
 			tex:SetTexture(image)
 			icon.icon = tex
 			
+			icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
+			
+			local cd = CreateFrame("Cooldown", nil, icon)
+			cd:SetAllPoints(icon)
+			cd:SetFrameLevel(i)
+			icon.cd = cd
 			
 			
 			auras.icons[v[1]] = icon
