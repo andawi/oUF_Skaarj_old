@@ -262,10 +262,12 @@ local UpdateComboPoint = function(self, event, unit)
 end
 
 local AWIcon = function(AWatch, icon, spellID, name, self)			
-	local count = fs(icon, "OVERLAY", cfg.font, 8, cfg.fontflag, 1, 1, 1)
-	count:SetPoint("BOTTOMRIGHT", icon, 5, -5)
-	icon.count = count
+	--local count = fs(icon, "OVERLAY", cfg.font, 8, cfg.fontflag, 1, 1, 1)
+	--count:SetPoint("BOTTOMRIGHT", icon, 5, -5)
+	--icon.count = count
 	icon.cd:SetReverse(true)
+	
+	
 end
 
 local CustomDebuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster)

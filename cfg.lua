@@ -135,6 +135,7 @@ cfg.spellIDs = {
 	{114163, {0.9, 0.6, 0.4}, "RIGHT"},	    -- Eternal Flame
 	{53563, {0.7, 0.3, 0.7}, "TOPRIGHT"},   -- Beacon of Light
 	},
+	
 	PRIEST = {
 	{77613, 15, 1, 1},				-- Grace
 	{33076, 15, 19, 1},				-- Prayer of Mending
@@ -142,8 +143,6 @@ cfg.spellIDs = {
 	{139, 15, 52, 1}, 				-- Renew
 	{47788, 30, 50, -15},			-- Guardian Spirit
 	{33206, 30, 50, -15},			-- Pain Suppress
-	
-	
 	{6788, 20, 34,-22 },			-- Weakened Soul
 	
 	
