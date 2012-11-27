@@ -1,3 +1,35 @@
+
+local L = {
+  ["Prayer of Mending"] = GetSpellInfo(33076),
+  ["Renew"] = GetSpellInfo(139),
+  ["Power Word: Shield"] = GetSpellInfo(17),
+  ["Weakened Soul"] = GetSpellInfo(6788),
+  
+  ["Shadow Protection"] = GetSpellInfo(27683),
+  
+  ["Power Word: Fortitude"] = GetSpellInfo(21562),
+  ['Blood Pact'] = GetSpellInfo(6307),
+  ['Commanding Shout'] = GetSpellInfo(469),
+  ["Fear Ward"] = GetSpellInfo(6346),
+  ["Levitate"] = GetSpellInfo(1706),
+
+  
+  ['Ardent Defender'] = GetSpellInfo(31850),
+  
+  ['Power Infusion'] = GetSpellInfo(10060),
+  ['Renew'] = GetSpellInfo(48068),
+  
+  ['Divine Aegis'] = GetSpellInfo(47753),
+  --['Searing Plasma'] = GetSpellInfo(109363),		--hc
+  ['Searing Plasma'] = GetSpellInfo(105479),	--nonhc
+  ['Spirit Shell'] = GetSpellInfo(114908),
+  
+ 
+}
+
+
+
+
 local sValue = function(val)
 	if (val >= 1e6) then
         return ("%.fm"):format(val / 1e6)
@@ -45,6 +77,20 @@ local function hex(r, g, b)
     end
     return ('|cff%02x%02x%02x'):format(r * 255, g * 255, b * 255)
 end
+
+function UnitAuraByID(unit, targetSpellID, filter)
+    for i=1,40 do
+        local name, rank, icon, count, dispelType, duration, expires, caster,
+        isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff,
+        value1, value2, value3  = UnitAura(unit, i, filter)
+        if spellID == targetSpellID then
+            return name, rank, icon, count, dispelType, duration, expires,
+                     caster, isStealable, shouldConsolidate, spellID,
+                     canApplyAura, isBossDebuff, value1, value2, value3 
+        end
+    end
+end
+
 
 oUF.colors.power['MANA'] = {.31,.45,.63}
 oUF.colors.power['RAGE'] = {.69,.31,.31}
@@ -135,8 +181,8 @@ end
 oUF.Tags.Events['short:name'] = 'UNIT_NAME_UPDATE'
 
 oUF.Tags.Methods['veryshort:name'] = function(u, r)
-    local name = tostring(UnitName(realUnit or u or r))
-    return utf8sub(name, 4, false)
+		local name = tostring(UnitName(u))
+		return utf8sub(name, 4, false)
 end
 oUF.Tags.Events['veryshort:name'] = 'UNIT_NAME_UPDATE'
 
@@ -204,3 +250,58 @@ oUF.Tags.Methods['skaarj:EclipseDirection'] = function(u)
 	end
 end
 oUF.Tags.Events['skaarj:EclipseDirection'] = "UNIT_POWER ECLIPSE_DIRECTION_CHANGE"
+
+local spellTimer
+local daamount
+local datext
+local DA, expirationTime, fromwho
+local remainingAbsorbAmount
+
+oUF.Tags.Methods['skaarj:DA'] = function(u)
+	if not UnitPlayerControlled(u) then return end
+	DA, _,_,_,_,_, expirationTime, fromwho = UnitAura(u, L['Divine Aegis'])
+	if not DA then return end
+  	
+	if fromwho == 'player' then 
+		
+		remainingAbsorbAmount = select(14, UnitAura(u, "Divine Aegis"))
+		if remainingAbsorbAmount then 
+			spellTimer = GetTime()-expirationTime
+			if spellTimer > -3.35 then
+			return "|cffFF0000"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			elseif spellTimer > -7 then
+				return "|cffFF9900"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			else
+				return "|cff33FF33"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			end
+		end
+	end
+end
+
+--Spirit Shell
+oUF.Tags.Methods['skaarj:SS'] = function(u)
+	if not UnitPlayerControlled(u) then return end
+	DA, _,_,_,_,_, expirationTime, fromwho,_,_,spellID = UnitAura(u, "Spirit Shell")
+	
+	if not DA then return end
+	
+	if fromwho == 'player' then 		
+		if UnitName(u) == UnitName('player') then
+			remainingAbsorbAmount = select(14, UnitAuraByID(u, 114908))	--need to scan all 40 buffs
+			DA, _,_,_,_,_, expirationTime, fromwho,_,_,spellID = UnitAuraByID(u, 114908)
+		else
+			remainingAbsorbAmount = select(14, UnitAura(u, "Spirit Shell")) 
+		end
+
+		if remainingAbsorbAmount then 
+			spellTimer = GetTime()-expirationTime
+			if spellTimer > -3.35 then
+			return "|cffFF0000"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			elseif spellTimer > -7 then
+				return "|cffFF9900"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			else
+				return "|cff33FF33"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			end
+		end
+	end
+end

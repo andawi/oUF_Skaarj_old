@@ -431,13 +431,7 @@ local Shared = function(self, unit)
 	self.DebuffHighlight = cfg.DebuffHighlight
 	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
 	
-	self.DebuffHighlight = self.Health:CreateTexture(nil, 'OVERLAY')
-	self.DebuffHighlight:SetAllPoints(self.Health)
-	self.DebuffHighlight:SetTexture(DBHTEX)
-	self.DebuffHighlight:SetVertexColor(0, 0, 0, 0)
-	self.DebuffHighlight:SetBlendMode('ADD')
-	self.DebuffHighlightAlpha = 1
-	self.DebuffHighlightFilter = true
+
 	
 	
 
@@ -1119,6 +1113,29 @@ local UnitSpecific = {
 		self.Health.colorSmooth = true
 		
 		
+		self.DebuffHighlight = self.Health:CreateTexture(nil, 'OVERLAY')
+		self.DebuffHighlight:SetAllPoints(self.Health)
+		self.DebuffHighlight:SetTexture(cfg.highlightBorder)
+		self.DebuffHighlight:SetVertexColor(0, 0, 0, 0)
+		self.DebuffHighlight:SetBlendMode('ADD')
+		self.DebuffHighlightAlpha = 1
+		
+			
+		self.AuraStatusRT = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
+		self.AuraStatusRT:ClearAllPoints()
+		self.AuraStatusRT:SetPoint("TOPRIGHT",-4, -2)
+		self.AuraStatusRT.frequentUpdates = 0.1
+		self.AuraStatusRT:SetAlpha(.6)
+		self:Tag(self.AuraStatusRT, "[skaarj:DA]")
+		
+		self.AuraStatusSS = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
+		self.AuraStatusSS:ClearAllPoints()
+		self.AuraStatusSS:SetPoint("BOTTOMRIGHT",-4, 0)
+		self.AuraStatusSS.frequentUpdates = 0.1
+		self.AuraStatusSS:SetAlpha(.6)
+		self:Tag(self.AuraStatusSS, "[skaarj:SS]")
+		
+		
 		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		name:SetPoint("TOPLEFT", self.Health, 3, -4)
 	    name:SetJustifyH"LEFT"
@@ -1130,7 +1147,7 @@ local UnitSpecific = {
 
         local htext = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
         htext:SetPoint("RIGHT", self.Health, 0, -8)
-		htext.frequentUpdates = true
+		--htext.frequentUpdates = true
         self:Tag(htext, '[skaarj:info]')		
 		
 		local lfd = fs(self.Health, "OVERLAY", cfg.symbol, 8, "", 1, 1, 1)

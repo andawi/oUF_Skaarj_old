@@ -12,8 +12,8 @@ cfg.symbol = mediaPath.."symbol.ttf"
 cfg.buttonTex = mediaPath.."gloss"
 cfg.raidIcons = mediaPath.."raidicons"
 
-local mediaPathN = "Interface\\AddOns\\oUF_heal\\media\\"
-local cfg.highlightBorder = mediaPathN..'highlightBorder'
+local mediaPathN = "Interface\\AddOns\\oUF_Skaarj\\media\\"
+cfg.highlightBorder = mediaPathN..'highlightBorder'
 
 
   
