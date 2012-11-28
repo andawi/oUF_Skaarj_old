@@ -210,16 +210,7 @@ local CustomFilter = function(icons, ...)
     end
 end
 
-local PostUpdateHealth = function(health, unit)
-	if(UnitIsDead(unit)) then
-		health:SetValue(0)
-	elseif(UnitIsGhost(unit)) then
-		health:SetValue(0)
-	elseif not (UnitIsConnected(unit)) then
-	    health:SetValue(0)
-	end
-end
-	
+
 local PostAltUpdate = function(self, min, cur, max)
     local per = math.floor((cur/max)*100)		
 	if per < 30 then
@@ -288,6 +279,7 @@ local createAuraWatch = function(self, unit)
 		auras.onlyShowPresent = cfg.onlyShowPresent
 		auras.anyUnit = cfg.anyUnit
 		auras.icons = {}
+		auras.hideCooldown = true			-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
 		auras.PostCreateIcon = AWIcon
 		
 		for i, v in pairs(cfg.spellIDs[class]) do
@@ -301,6 +293,8 @@ local createAuraWatch = function(self, unit)
 			    icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
 			end
 	
+			if v[5] then auras.anyUnit = v[5] end
+			
 			local name, _, image = GetSpellInfo(v[1])
 			local tex = icon:CreateTexture(nil, "OVERLAY")
 			tex:SetTexCoord(.07, .93, .07, .93)
@@ -1111,7 +1105,7 @@ local UnitSpecific = {
 		
 		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}
 		self.Health.colorSmooth = true
-		
+		self.Health.colorDisconnected = true
 		
 		self.DebuffHighlight = self.Health:CreateTexture(nil, 'OVERLAY')
 		self.DebuffHighlight:SetAllPoints(self.Health)
@@ -1136,9 +1130,11 @@ local UnitSpecific = {
 		self:Tag(self.AuraStatusSS, "[skaarj:SS]")
 		
 		
-		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
+		local name = fs(self.Health, "OVERLAY", cfg.fontB, 13)
 		name:SetPoint("TOPLEFT", self.Health, 3, -4)
 	    name:SetJustifyH"LEFT"
+		name:SetShadowColor(0, 0, 0)
+		name:SetShadowOffset(1, -1)
 		if cfg.class_colorbars then
 	        self:Tag(name, '[veryshort:name]')
 		else

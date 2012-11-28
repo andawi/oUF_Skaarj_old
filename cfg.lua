@@ -6,13 +6,14 @@
   -----------------------------
   
 local mediaPath = "Interface\\AddOns\\Media\\"
+local mediaPathN = "Interface\\AddOns\\oUF_Skaarj\\media\\"
 cfg.texture = mediaPath.."texture"
 cfg.font, cfg.fontsize, cfg.shadowoffsetX, cfg.shadowoffsetY, cfg.fontflag = mediaPath.."pixel.ttf", 8, 0, 0,  "Outlinemonochrome" -- "" for none THINOUTLINE Outlinemonochrome
+cfg.fontB = mediaPathN.."ROADWAY.ttf"
 cfg.symbol = mediaPath.."symbol.ttf"
 cfg.buttonTex = mediaPath.."gloss"
 cfg.raidIcons = mediaPath.."raidicons"
 
-local mediaPathN = "Interface\\AddOns\\oUF_Skaarj\\media\\"
 cfg.highlightBorder = mediaPathN..'highlightBorder'
 
 
@@ -135,16 +136,15 @@ cfg.spellIDs = {
 	},
 	
 	PRIEST = {
-	{77613, 15, 1, 1},				-- Grace
-	{33076, 15, 19, 1},				-- Prayer of Mending
-	{17, 15, 36, 1},				-- Power Word: Shield
-	{139, 15, 52, 1}, 				-- Renew
-	{47788, 30, 50, -15},			-- Guardian Spirit
-	{33206, 30, 50, -15},			-- Pain Suppress
-	{6788, 20, 34,-22 },			-- Weakened Soul
-	
-	
+	{77613, 15, 1, 1, false},				-- Grace
+	{33076, 15, 19, 1, false},				-- Prayer of Mending
+	{17, 15, 36, 1, true},					-- Power Word: Shield
+	{139, 15, 52, 1, false}, 				-- Renew
+	{47788, 30, 50, -15, false},			-- Guardian Spirit
+	{33206, 30, 50, -15, false},			-- Pain Suppress
+	{6788, 20, 34,-22, true },				-- Weakened Soul
 	},
+	
 	SHAMAN = {
 	{974, {0.2, 0.7, 0.2}},				  -- Earth Shield
 	{61295, {0.7, 0.3, 0.7}, "TOPRIGHT"}, -- Riptide
