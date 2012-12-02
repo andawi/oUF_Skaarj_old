@@ -135,14 +135,60 @@ cfg.spellIDs = {
 	{53563, {0.7, 0.3, 0.7}, "TOPRIGHT"},   -- Beacon of Light
 	},
 	
+	--SPELL ID, size, X-POS, Y-POS, anyUnit, ALPHA
 	PRIEST = {
-	{77613, 15, 1, 1, false},				-- Grace
-	{33076, 15, 19, 1, false},				-- Prayer of Mending
-	{17, 15, 36, 1, true},					-- Power Word: Shield
-	{139, 15, 52, 1, false}, 				-- Renew
-	{47788, 30, 50, -15, false},			-- Guardian Spirit
-	{33206, 30, 50, -15, false},			-- Pain Suppress
-	{6788, 20, 34,-22, true },				-- Weakened Soul
+	
+	{77613, 13, 8, 12, false},				-- Grace
+	{33076, 13, 22, 12, false},				-- Prayer of Mending
+	{17, 13, 36, 12, true},					-- Power Word: Shield
+	{139, 13, 50, 12, false}, 				-- Renew
+		
+	--POS1 - personal CDs
+	
+	{642, 25, 18, 0, true, 0.75}, 			-- Divine Shield (50%)
+	{871, 25, 18, 0, true, 0.75}, 			-- Shield Wall (50%)
+	{61336, 25, 18, 0, true, 0.75},		-- Survival Instincts		
+	{48792, 25, 18, 0, true, 0.75},		-- Icebound Fortitude
+	{19263, 25, 18, 0, true, 0.75},		-- Deterrence
+	{45438, 25, 18, 0, true, 0.75},		-- Iceblock
+
+	--POS2
+	{64901, 25, 30, 0, true, 0.75},		-- Hymn of Hope
+	{29166,	17, 30, 0, true, 0.75},		-- Innervate
+	
+	--POS3
+	{31850,	25, 42, 0, true, 0.75},		-- Ardent Defender
+	{106922, 25, 42, 0, true, 0.75},		-- Might of Ursoc
+	{55233, 17, 42, 0, true, 0.75}, 		-- Vampiric Blood
+	
+
+	--POS4
+	{81782,	25, 64, 0, true, 0.75},		-- Power Word Barrier
+	{86659, 20, 64, 0, true, 0.75},		--Guardian of Ancient Kings
+	
+
+	--POS5
+	{31821,	25, 76, 0, true, 0.75},		-- Devotion Aura
+	{1022, 17, 75, 0, true, 0.75},		-- Hand of Protection
+	{6940, 17, 75, 0, true, 0.75},		-- Hand of Sacrifice
+	
+	--POS6
+	{33206, 25, 88, 0, false, 0.75},		-- Pain Suppress
+	{47788, 25, 88, 0, false, 0.75},		-- Guardian Spirit
+	
+	
+	--POS7
+	{740, 25, 100, 0, true, 0.75},			-- Tranquility
+	
+	-- POSx
+	{498, 25, 112, 0, true, 0.75},  		-- Divine Protection
+	{22812, 25, 112, 0, true, 0.75},		-- Barkskin
+	{102342, 20, 112, 0, true, 0.75},		-- Ironbark 
+	{12975, 25, 112, 0, true, 0.75},		-- Last Stand
+	{48707,	25, 112, 0, true, 0.75}, 		-- Anti-magic Shell
+	{97462, 20, 112, 0, true, 0.75},		-- Rallying Cry 
+
+	{6788, 20, 36, 0, true, 0.25},				-- Weakened Soul
 	},
 	
 	SHAMAN = {

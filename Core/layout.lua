@@ -254,13 +254,28 @@ local UpdateComboPoint = function(self, event, unit)
 end
 
 local AWIcon = function(AWatch, icon, spellID, name, self)			
-	--local count = fs(icon, "OVERLAY", cfg.font, 8, cfg.fontflag, 1, 1, 1)
-	--count:SetPoint("BOTTOMRIGHT", icon, 5, -5)
-	--icon.count = count
+	--[[
+	 icon.glow = CreateFrame("Frame", nil, icon)
+     icon.glow:SetPoint("TOPLEFT", icon, "TOPLEFT", -4, 4)
+     icon.glow:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 4, -4)
+     icon.glow:SetFrameLevel(icon:GetFrameLevel()-1)
+     icon.glow:SetBackdrop({bgFile = "", edgeFile = "Interface\\AddOns\\Media\\glowTex",
+     edgeSize = 5,insets = {left = 3,right = 3,top = 3,bottom = 3,},})
+	 icon.glow:SetBackdropBorderColor(0,0,0,1)
+	]]
+	icon:SetBackdrop(backdrop_1px)
+    icon:SetBackdropColor(0,0,0,0.5)
+	 
+	 
 	icon.cd:SetReverse(true)
 	
-	
 end
+
+
+
+
+
+
 
 local CustomDebuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster)
 	
@@ -286,9 +301,11 @@ local createAuraWatch = function(self, unit)
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = v[1]
 			icon:SetSize(v[2], v[2])
+			icon:SetFrameLevel(i)
+			
 			
 			if v[3] then
-			    icon:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', v[3], v[4])
+			    icon:SetPoint('CENTER', self, 'LEFT', v[3], v[4])
 			else
 			    icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
 			end
@@ -300,9 +317,14 @@ local createAuraWatch = function(self, unit)
 			tex:SetTexCoord(.07, .93, .07, .93)
 			tex:SetAllPoints(icon)
 			tex:SetTexture(image)
+			
 			icon.icon = tex
 			
+			if v[6] then icon:SetAlpha(v[6]) end		
+			
 			icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
+			
+			
 			
 			local cd = CreateFrame("Cooldown", nil, icon)
 			cd:SetAllPoints(icon)
@@ -325,7 +347,7 @@ end
     
 local Resurrect = function(self) 
     res = CreateFrame('Frame', nil, self)
-	res:SetSize(22, 22)
+	res:SetSize(15, 15)
 	res:SetPoint('CENTER', self)
 	res:SetFrameStrata'HIGH'
     res:SetBackdrop(backdrop_1px)
