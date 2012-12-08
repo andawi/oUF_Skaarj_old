@@ -296,11 +296,11 @@ oUF.Tags.Methods['skaarj:SS'] = function(u)
 		if remainingAbsorbAmount then 
 			spellTimer = GetTime()-expirationTime
 			if spellTimer > -3.35 then
-			return "|cffFF0000"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+			return "|cffFF0000"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r".." ("..floor((remainingAbsorbAmount/(UnitHealthMax('player')* .6)) * 100 + .5).."%)"
 			elseif spellTimer > -7 then
-				return "|cffFF9900"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+				return "|cffFF9900"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r".." ("..floor((remainingAbsorbAmount/(UnitHealthMax('player')* .6)) * 100 + .5).."%)"
 			else
-				return "|cff33FF33"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r"
+				return "|cff33FF33"..floor((remainingAbsorbAmount / 1e3) + .5).."k|r".." ("..floor((remainingAbsorbAmount/(UnitHealthMax('player')* .6)) * 100 + .5).."%)"
 			end
 		end
 	end

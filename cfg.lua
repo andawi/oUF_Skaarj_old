@@ -55,7 +55,7 @@ cfg.party_power_height = 3
 cfg.pet_width = 90
 cfg.pet_height = 30
 
-cfg.disableRaidFrameManager = true
+cfg.disableRaidFrameManager = false
 cfg.portraits = false
 cfg.healcomm = true
 cfg.specific_power = true
@@ -76,7 +76,7 @@ cfg.AltPowerBar_Height = 12
                 Pet = { x=	  0, y=  -65},  
                Boss = { x=  -300,y=  250},  
                Tank = { x=	 10, y=  100},  
-               Raid = { x=	 0, y=  -200},   
+               Raid = { x=	 0, y=  -150},   
 	          Party = { x=	 10, y=  250},
               Arena = { x= -300, y=  250},			  
 }
@@ -188,7 +188,7 @@ cfg.spellIDs = {
 	{48707,	25, 112, 0, true, 0.75}, 		-- Anti-magic Shell
 	{97462, 20, 112, 0, true, 0.75},		-- Rallying Cry 
 
-	{6788, 20, 36, 0, true, 0.25},				-- Weakened Soul
+	{6788, 20, 36, 0, true, 0.5},				-- Weakened Soul
 	},
 	
 	SHAMAN = {

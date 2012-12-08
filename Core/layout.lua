@@ -320,7 +320,7 @@ local createAuraWatch = function(self, unit)
 			
 			icon.icon = tex
 			
-			if v[6] then icon:SetAlpha(v[6]) end		
+			if v[6] then icon.icon:SetAlpha(v[6]) end		
 			
 			icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
 			
@@ -1332,24 +1332,78 @@ oUF:Factory(function(self)
 	
 	if cfg.raid then
 	
-	    self:SetActiveStyle'Skaarj - Raid'
-	
-	    local raid = oUF:SpawnHeader(nil, nil, "custom [@raid6,exists] show; show", --"custom [@raid6,exists] show; hide"
-        'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.raid_width, cfg.raid_health_height+cfg.raid_power_height+1),
-        'showPlayer', true,
-        'showSolo', false,
-        'showParty', true,
-        'showRaid', true,
-        'xoffset', 5,
-        'yOffset', -15,
-        'point', "LEFT",
-        'groupFilter', '1,2,3,4,5,6,7,8',
-        'groupingOrder', 'MAINTANK',
-        'groupBy', 'GROUP',
-        'maxColumns', 8,
-        'unitsPerColumn', 5,
-        'columnSpacing', 5,
-        'columnAnchorPoint', "TOP")
-        raid:SetPoint("CENTER", UIParent, "CENTER", cfg.unit_positions.Raid.x, cfg.unit_positions.Raid.y)
+		self:SetActiveStyle'Skaarj - Raid'
+		local raid = {}
+		local numRaidMembers = GetNumGroupMembers ()
+		if numRaidMembers < 20 then
+			
+			
+			for i = 1, 2 do
+				local raidgroup = oUF:SpawnHeader(nil, nil, "custom [@raid6,exists] show; show", --"custom [@raid6,exists] show; hide"
+				'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.raid_width, cfg.raid_health_height+cfg.raid_power_height+1),
+				'showPlayer', true,
+				'showSolo', false,
+				'showParty', true,
+				'showRaid', true,
+				'xoffset', 5,
+				'yOffset', -15,
+				'point', "LEFT",
+				'groupFilter', tostring(i),
+				'groupBy', 'ROLE',
+				'groupingOrder', 'MAINTANK',
+				'maxColumns', 8,
+				'unitsPerColumn', 5,
+				'columnSpacing', 5,
+				'columnAnchorPoint', "TOP")
+				table.insert(raid, raidgroup)
+			
+				if(i==1) then
+							
+					raidgroup:SetPoint("CENTER", UIParent, "CENTER", cfg.unit_positions.Raid.x, cfg.unit_positions.Raid.y)
+						
+				else
+							
+					raidgroup:SetPoint('TOP', raid[i-1], 'BOTTOM', 0, -10)
+					
+				end
+			end
+		else
+		
+			for i = 1, NUM_RAID_GROUPS do
+				local raidgroup = oUF:SpawnHeader(nil, nil, "custom [@raid6,exists] show; show", --"custom [@raid6,exists] show; hide"
+				'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.raid_width, cfg.raid_health_height+cfg.raid_power_height+1),
+				'showPlayer', true,
+				'showSolo', false,
+				'showParty', true,
+				'showRaid', true,
+				'xoffset', 5,
+				'yOffset', -15,
+				'point', "LEFT",
+				'groupFilter', tostring(i),
+				'groupBy', 'ROLE',
+				'groupingOrder', 'MAINTANK',
+				'maxColumns', 8,
+				'unitsPerColumn', 5,
+				'columnSpacing', 5,
+				'columnAnchorPoint', "TOP")
+				table.insert(raid, raidgroup)
+			
+				if(i==1) then
+							
+					raidgroup:SetPoint("CENTER", UIParent, "CENTER", cfg.unit_positions.Raid.x, cfg.unit_positions.Raid.y)
+						
+				elseif (i==2) then
+							
+					raidgroup:SetPoint('TOP', raid[i-1], 'BOTTOM', 0, -10)
+					
+				else 
+				
+					raidgroup:SetPoint('TOP', raid[i-1], 'BOTTOM', 0, -1)
+					raidgroup:SetAlpha(1)
+				end
+			end
+		
+		
+		end
 	end
 end)
