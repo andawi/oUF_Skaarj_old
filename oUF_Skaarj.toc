@@ -15,6 +15,7 @@ Plugins\oUF_DebuffHighlight.lua
 Plugins\oUF_AuraWatch.lua
 Plugins\oUF_Shadoworbs.lua
 
+Core\range.lua
 Core\functions.lua
 Core\raiddebuffs.lua
 Core\tags.lua

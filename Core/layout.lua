@@ -14,12 +14,16 @@ local backdrop_1px = {
 
 local OnEnter = function(self)
     UnitFrame_OnEnter(self)
-    self.Highlight:Show()	
+    self.Highlight:Show()
+	ns:arrow(self, self.unit)
 end
 
 local OnLeave = function(self)
     UnitFrame_OnLeave(self)
     if not UnitIsUnit('target', self.unit) then self.Highlight:Hide() end
+	if(self.freebarrow and self.freebarrow:IsShown()) and ns.arrowmouseover or (ns.arrowmouseoveralways and not self.OoR)then
+				self.freebarrow:Hide()
+			end
 end
 
 
@@ -28,6 +32,11 @@ local range = {
         outsideAlpha = .25,
     }
 
+	ns.RangeArrowScale = 0.7
+	ns.arrowmouseover = true
+	ns.arrowmouseoveralways = false
+	
+	
 
 
 local Highlight = function(self) 
@@ -441,7 +450,24 @@ local Shared = function(self, unit)
     self.framebd = framebd(self, self)		--extra Frame Backdrop...
 	
 	
-	self.Range = range
+	
+		
+-- Arrows
+		local frame = CreateFrame("Frame", nil, UIParent)
+		frame:SetAllPoints(self)
+		frame:SetFrameStrata("HIGH")
+		frame:SetScale(ns.RangeArrowScale)
+
+		frame.arrow = frame:CreateTexture(nil, "OVERLAY")
+		frame.arrow:SetTexture(cfg.arrow)
+		frame.arrow:SetPoint("CENTER", frame, "CENTER", 0, -10)
+		frame.arrow:SetSize(24, 24)
+
+		self.freebarrow = frame
+		self.freebarrow:Hide()
+		
+	
+	self.freebRange = range
 
 
 	self.DebuffHighlight = cfg.DebuffHighlight
@@ -1110,7 +1136,6 @@ local UnitSpecific = {
     raid = function(self, ...)
 		Shared(self, ...)
 		
-		
 		self.Health:ClearAllPoints()
 		self.Power:ClearAllPoints()
 		
@@ -1136,6 +1161,12 @@ local UnitSpecific = {
 		self.DebuffHighlight:SetBlendMode('ADD')
 		self.DebuffHighlightAlpha = 1
 		
+		
+		self.AuraStatusBL = self.Health:CreateFontString(nil, "OVERLAY")
+		self.AuraStatusBL:ClearAllPoints()
+		self.AuraStatusBL:SetPoint("TOPRIGHT",-1, -1)
+		self.AuraStatusBL:SetFont(cfg.squares, 10, "OUTLINE")
+		self:Tag(self.AuraStatusBL, "[skaarj:fort]")
 			
 		self.AuraStatusRT = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		self.AuraStatusRT:ClearAllPoints()
@@ -1150,6 +1181,8 @@ local UnitSpecific = {
 		self.AuraStatusSS.frequentUpdates = 0.1
 		self.AuraStatusSS:SetAlpha(.6)
 		self:Tag(self.AuraStatusSS, "[skaarj:SS]")
+		
+	
 		
 		
 		local name = fs(self.Health, "OVERLAY", cfg.fontB, 13)
@@ -1335,7 +1368,7 @@ oUF:Factory(function(self)
 		self:SetActiveStyle'Skaarj - Raid'
 		local raid = {}
 		local numRaidMembers = GetNumGroupMembers ()
-		if numRaidMembers < 20 then
+		if numRaidMembers < 18 then
 			
 			
 			for i = 1, 2 do

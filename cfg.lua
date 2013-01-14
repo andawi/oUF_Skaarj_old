@@ -13,6 +13,8 @@ cfg.fontB = mediaPathN.."ROADWAY.ttf"
 cfg.symbol = mediaPath.."symbol.ttf"
 cfg.buttonTex = mediaPath.."gloss"
 cfg.raidIcons = mediaPath.."raidicons"
+cfg.squares = mediaPathN.."squares.ttf"
+cfg.arrow = mediaPathN.."Arrow"
 
 cfg.highlightBorder = mediaPathN..'highlightBorder'
 
@@ -25,7 +27,7 @@ cfg.highlightBorder = mediaPathN..'highlightBorder'
 cfg.scale = 1  
 
 cfg.party = false
-cfg.raid = true
+cfg.raid = true	
 cfg.boss = true
 cfg.tank = false
 cfg.arena = true

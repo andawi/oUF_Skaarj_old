@@ -251,6 +251,17 @@ oUF.Tags.Methods['skaarj:EclipseDirection'] = function(u)
 end
 oUF.Tags.Events['skaarj:EclipseDirection'] = "UNIT_POWER ECLIPSE_DIRECTION_CHANGE"
 
+local x = "x"
+oUF.Tags.Methods['skaarj:fort'] = function(u)
+	if not UnitPlayerControlled(u) then return end
+	local c = UnitAura(u, L["Blood Pact"]) or UnitAura(u, L['Commanding Shout']) or UnitAura(u, L["Power Word: Fortitude"])
+	if not c then 
+		return "|cff00A1DE"..x.."|r" 
+	end 
+end
+oUF.Tags.Events['skaarj:fort'] = 'UNIT_AURA'
+
+
 local spellTimer
 local daamount
 local datext
