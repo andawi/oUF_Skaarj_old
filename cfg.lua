@@ -27,7 +27,7 @@ cfg.highlightBorder = mediaPathN..'highlightBorder'
 cfg.scale = 1  
 
 cfg.party = false
-cfg.raid = false	
+cfg.raid = true	
 cfg.boss = true
 cfg.tank = false
 cfg.arena = true

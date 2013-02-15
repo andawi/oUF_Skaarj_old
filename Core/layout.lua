@@ -1172,14 +1172,14 @@ local UnitSpecific = {
 			
 		self.AuraStatusRT = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		self.AuraStatusRT:ClearAllPoints()
-		self.AuraStatusRT:SetPoint("TOPRIGHT",-4, -2)
+		self.AuraStatusRT:SetPoint("TOPRIGHT",-6, -2)
 		self.AuraStatusRT.frequentUpdates = 0.1
 		self.AuraStatusRT:SetAlpha(.6)
 		self:Tag(self.AuraStatusRT, "[skaarj:DA]")
 		
 		self.AuraStatusSS = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		self.AuraStatusSS:ClearAllPoints()
-		self.AuraStatusSS:SetPoint("BOTTOMRIGHT",-4, 0)
+		self.AuraStatusSS:SetPoint("BOTTOMRIGHT",-6, 0)
 		self.AuraStatusSS.frequentUpdates = 0.1
 		self.AuraStatusSS:SetAlpha(.6)
 		self:Tag(self.AuraStatusSS, "[skaarj:SS]")

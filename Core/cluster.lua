@@ -1,5 +1,6 @@
 local parent, ns = ...
-local oUF = ns.oUF or oUF
+local cfg = ns.cfg
+--local oUF = ns.oUF or oUF
 
 local MapData = LibStub("LibMapData-1.0")
 local mapwidth, mapheight = 0, 0
@@ -15,9 +16,9 @@ oUF.Tags.Methods['freebgrid:cluster'] = function(u)
     if units[u] then
         local num = units[u].numInRange
         if num > 2 then
-            if num > 6 then
-                num = "6+"
-            end
+            --if num >5 then
+            --    num = "5+"
+            --end
 
             return num
         end
@@ -121,10 +122,12 @@ local updateMapFiles = function()
 end
 
 local fillroster = function(unit)
+	
     units[unit] = { 
         ["pos"] = "",
         ["numInRange"] = 1,
         ["hp"] = 0,
+		["grp"] = "",
     }
 end
 
@@ -165,19 +168,15 @@ frame:SetScript("OnEvent", function(self, event)
 end)
 
 local Enable = function(self)
-    if self.IsFreebgrid and ns.db.cluster.enabled then
-        update = ns.db.cluster.freq / 1000
-        healrange = ns.db.cluster.range
-        clusterPerc = ns.db.cluster.perc / 100
+        update = 200 / 1000
+        healrange = 30
+        clusterPerc = 101 / 100
 
-        self.freebCluster = self.Health:CreateFontString(nil, "OVERLAY")
-        self.freebCluster:SetPoint("RIGHT", 0, 8)
-        self.freebCluster:SetJustifyH("RIGHT")
-        self.freebCluster:SetFont(ns.db.fontPath, ns.db.fontsizeEdge, ns.db.outline)
-        self.freebCluster:SetTextColor(ns.db.cluster.textcolor.r, ns.db.cluster.textcolor.g, ns.db.cluster.textcolor.b)
-        self.freebCluster:SetShadowOffset(1.25, -1.25)
-        self.freebCluster:SetWidth(ns.db.width)
-        self.freebCluster.frequentUpdates = update
+        local freebCluster = fs(self.Health, "OVERLAY", cfg.font, 10, cfg.fontflag, 1, 1, 1)
+        freebCluster:SetPoint("RIGHT", 0, 0)
+        freebCluster:SetJustifyH("RIGHT")
+        self.freebCluster = freebCluster
+		self.freebCluster.frequentUpdates = update
         self:Tag(self.freebCluster, "[freebgrid:cluster]")
         self.freebCluster:Show()
 
@@ -188,12 +187,11 @@ local Enable = function(self)
         updateRoster()
 
         return true
-    end
 
 end
 
 local Disable = function(self)
-    if self.IsFreebgrid and not ns.db.cluster.enabled then
+    
         if self.freebCluster then
             self.freebCluster.frequentUpdates = false
             self.freebCluster:Hide()
@@ -204,7 +202,7 @@ local Disable = function(self)
         frame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
         frame:SetScript("OnUpdate", nil)
         wipe(units)
-    end
+
 end
 
 oUF:AddElement('freebCluster', nil, Enable, Disable)
