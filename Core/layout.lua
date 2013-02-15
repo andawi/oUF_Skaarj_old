@@ -438,7 +438,7 @@ end
 
 local Shared = function(self, unit)
 
-    self.menu = menu
+    --self.menu = menu
 	
 	--self:SetBackdrop(backdrop)
 	--self:SetBackdropColor(0, 0, 0, 1)
@@ -582,6 +582,8 @@ end
 local UnitSpecific = {
     player = function(self, ...)
         Shared(self, ...)
+		
+		self.menu = menu
 		
 		self:SetSize(cfg.width, cfg.health_height+cfg.power_height+1)
 		self.Health:SetHeight(cfg.health_height)

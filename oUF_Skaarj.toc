@@ -7,6 +7,11 @@
 ## OptionalDeps: 
 ## Credits: Skaarj, haste, Freebaser, Alez, Zork, Shestak
 
+
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+libs\LibMapData-1.0\library.lua
+
 cfg.lua
 
 Plugins\oUF_Smooth.lua
@@ -19,4 +24,5 @@ Core\range.lua
 Core\functions.lua
 Core\raiddebuffs.lua
 Core\tags.lua
+Core\cluster.lua
 Core\layout.lua
