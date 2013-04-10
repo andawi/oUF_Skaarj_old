@@ -924,45 +924,6 @@ local UnitSpecific = {
         end
     end,
 
-	boss = function(self, ...)
-        Shared(self, ...)
-		
-	    self:SetSize(cfg.boss_width, cfg.boss_health_height+cfg.boss_power_height+1)
-		self.Health:SetHeight(cfg.boss_health_height)
-		self.Power:SetHeight(cfg.boss_power_height)
-		self.unit = "boss"
-		
-		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-        name:SetPoint("LEFT", self.Health, 4, 0)
-        name:SetJustifyH"LEFT"
-		if cfg.class_colorbars then
-		    self:Tag(name, '[long:name]')
-		else
-		    self:Tag(name, '[skaarj:color][long:name]')
-		end
-		
-		local htext = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-        htext:SetPoint("RIGHT", self.Health, -2, 0)
-		htext.frequentUpdates = true
-        self:Tag(htext, '[party:hp]')
-		
-		self.RaidIcon:SetSize(20, 20)
-	    self.RaidIcon:SetPoint("TOP", self.Health, 0, 10)
-		
-		if cfg.auras then 
-            local b = CreateFrame("Frame", nil, self)
-			b.size = 24
-			b.spacing = 4
-			b.num = 3
-            b:SetSize(b.num*b.size+b.spacing*(b.num-1), b.size)
-            b:SetPoint("TOPLEFT", self, "TOPRIGHT", 5, 0)
-            b.initialAnchor = "TOPLEFT"
-            b.PostCreateIcon = auraIcon
-            b.PostUpdateIcon = PostUpdateIcon
-            self.Buffs = b       
-        end
-    end,
-
     pet = function(self, ...)
         Shared(self, ...)
 		
@@ -1230,12 +1191,7 @@ oUF:Factory(function(self)
     spawnHelper(self, "focustarget", "LEFT", "oUF_SkaarjFocus", cfg.unit_positions.Focustarget.x, cfg.unit_positions.Focustarget.y)
     spawnHelper(self, "pet", "LEFT", "oUF_SkaarjPlayer", cfg.unit_positions.Pet.x, cfg.unit_positions.Pet.y)
 
-    if cfg.boss then
-	    for i = 1, MAX_BOSS_FRAMES do
-            spawnHelper(self, 'boss' .. i, "RIGHT", cfg.unit_positions.Boss.x, cfg.unit_positions.Boss.y - (52 * i))
-        end
-    end
-	
+    
     if cfg.party then
   
         self:SetActiveStyle'Skaarj - Party'
