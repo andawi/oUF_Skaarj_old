@@ -269,7 +269,6 @@ local createAuraWatch = function(self, unit)
 			icon:SetSize(v[2], v[2])
 			icon:SetFrameLevel(i)
 			
-			
 			if v[3] then
 			    icon:SetPoint('CENTER', self, 'LEFT', v[3], v[4])
 			else
@@ -289,8 +288,6 @@ local createAuraWatch = function(self, unit)
 			if v[6] then icon.icon:SetAlpha(v[6]) end		
 			
 			icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
-			
-			
 			
 			local cd = CreateFrame("Cooldown", nil, icon)
 			cd:SetAllPoints(icon)
@@ -375,25 +372,6 @@ local Shared = function(self, unit)
 	
     self.framebd = framebd(self, self)		--extra Frame Backdrop...
 	
--- Arrows
-		local frame = CreateFrame("Frame", nil, UIParent)
-		frame:SetAllPoints(self)
-		frame:SetFrameStrata("HIGH")
-		frame:SetScale(ns.RangeArrowScale)
-
-		frame.arrow = frame:CreateTexture(nil, "OVERLAY")
-		frame.arrow:SetTexture(cfg.arrow)
-		frame.arrow:SetPoint("CENTER", frame, "CENTER", 0, -10)
-		frame.arrow:SetSize(24, 24)
-
-		self.freebarrow = frame
-		self.freebarrow:Hide()
-		
-	self.freebRange = range
-
-	self.DebuffHighlight = cfg.DebuffHighlight
-	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
-
     local h = createStatusbar(self, cfg.texture, nil, nil, nil, cfg.Color.Health.r, cfg.Color.Health.g, cfg.Color.Health.b, 1)
     h:SetPoint"TOP"
 	h:SetPoint"LEFT"
@@ -488,6 +466,26 @@ local Shared = function(self, unit)
 	Highlight(self)
 	Setfocus(self)
 	
+-- Arrows
+	local frame = CreateFrame("Frame", nil, UIParent)
+	frame:SetAllPoints(self)
+	frame:SetFrameStrata("HIGH")
+	frame:SetScale(ns.RangeArrowScale)
+
+	frame.arrow = frame:CreateTexture(nil, "OVERLAY")
+	frame.arrow:SetTexture(cfg.arrow)
+	frame.arrow:SetPoint("CENTER", frame, "CENTER", 0, -10)
+	frame.arrow:SetSize(24, 24)
+
+	self.freebarrow = frame
+	self.freebarrow:Hide()
+		
+	self.freebRange = range
+
+--DebuffHighlight
+	self.DebuffHighlight = cfg.DebuffHighlight
+	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
+	
 	self:SetScale(cfg.scale) 
 end
 
@@ -554,11 +552,9 @@ local UnitSpecific = {
         self.PvP = PvP
 		
         if cfg.specific_power then 
-		    if (class == "DEATHKNIGHT" or class == "PALADIN" or class == "MONK") then
+		    if (class == "PALADIN" or class == "MONK") then
                 local c
-                if class == "DEATHKNIGHT" then 
-                    c = 6
-			    elseif class == "PALADIN" then
+                if class == "PALADIN" then
 	                local numMax = UnitPowerMax("player", SPELL_POWER_HOLY_POWER)
 					c = numMax
                 elseif class == "MONK" then
@@ -598,9 +594,6 @@ local UnitSpecific = {
                     i=i-1
                 end
 
-                if class == "DEATHKNIGHT" then
-                    self.Runes = b
-                end
             end
 			    			
 			if class == "PRIEST" then
@@ -956,8 +949,7 @@ local UnitSpecific = {
 		
 		self.Health:SetHeight(cfg.raid_health_height)
 		self.Power:SetHeight(cfg.raid_power_height)
-		
-		
+
 		self.Power:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 1, 0) 
 		self.Power:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -1, 0)
 		
@@ -975,7 +967,6 @@ local UnitSpecific = {
 		self.DebuffHighlight:SetVertexColor(0, 0, 0, 0)
 		self.DebuffHighlight:SetBlendMode('ADD')
 		self.DebuffHighlightAlpha = 1
-		
 		
 		self.AuraStatusBL = self.Health:CreateFontString(nil, "OVERLAY")
 		self.AuraStatusBL:ClearAllPoints()
