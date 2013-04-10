@@ -1076,65 +1076,6 @@ local UnitSpecific = {
         self.PhaseIcon = ph
     end,
 	
-	arena = function(self, ...)
-		Shared(self, ...)
-		
-		self:SetSize(cfg.arena_width, cfg.arena_health_height+cfg.arena_power_height+1)
-		self.Health:SetHeight(cfg.arena_health_height)
-		self.Power:SetHeight(cfg.arena_power_height)
-		self.unit = "arena"
-		
-		if cfg.healcomm then Healcomm(self) end
-		
-		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-        name:SetPoint("LEFT", self.Health, 4, 0)
-        name:SetJustifyH"LEFT"
-		if cfg.class_colorbars then
-		    self:Tag(name, '[long:name]')
-		else
-		    self:Tag(name, '[skaarj:color][long:name]')
-		end
-		
-		local htext = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-        htext:SetPoint("RIGHT", self.Health, -2, 0)
-		htext.frequentUpdates = true
-        self:Tag(htext, '[party:hp]')
-		
-		local PvP = self.Health:CreateTexture(nil, 'OVERLAY')
-        PvP:SetSize(28, 28)
-        PvP:SetPoint('BOTTOMLEFT', self.Health, 'TOPRIGHT', -15, -20)
-        self.PvP = PvP
-		
-		local at = CreateFrame('Frame', nil, self)
-		at:SetAllPoints(t)
-		at:SetFrameStrata('HIGH')
-		at.icon = at:CreateTexture(nil, 'ARTWORK')
-		at.icon:SetAllPoints(at)
-		at.icon:SetTexCoord(0.07,0.93,0.07,0.93)
-		at.text = at:CreateFontString(nil, 'OVERLAY', 'NumberFontNormal')
-		at.text:SetPoint('CENTER', at, 0, 0)
-		at:SetScript('OnUpdate', UpdateAuraTrackerTime)
-		self.AuraTracker = at
-		
-    end,
-	
-	arenatarget = function(self, ...)
-		Shared(self, ...)
-		
-		self:SetSize(50, cfg.arena_health_height+cfg.arena_power_height+1)
-		self.Health:SetHeight(cfg.arena_health_height)
-		self.Power:SetHeight(cfg.arena_power_height)
-		
-		local name = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
-        name:SetPoint("CENTER", self.Health)
-        name:SetJustifyH"CENTER"
-		if cfg.class_colorbars then
-		    self:Tag(name, '[veryshort:name]')
-		else
-		    self:Tag(name, '[skaarj:color][veryshort:name]')
-		end	
-    end,
-
     raid = function(self, ...)
 		Shared(self, ...)
 		
@@ -1294,31 +1235,6 @@ oUF:Factory(function(self)
             spawnHelper(self, 'boss' .. i, "RIGHT", cfg.unit_positions.Boss.x, cfg.unit_positions.Boss.y - (52 * i))
         end
     end
-	
-	if cfg.arena then
-		local arena = {}
-		local arenatarget = {}
-		
-		self:SetActiveStyle'Skaarj - Arena'
-		for i = 1, 5 do
-			arena[i] = self:Spawn("arena"..i, "oUF_Arena"..i)
-			if i == 1 then
-				arena[i]:SetPoint("RIGHT", UIParent, cfg.unit_positions.Arena.x, cfg.unit_positions.Arena.y)
-			else
-				arena[i]:SetPoint("TOP", arena[i-1], "BOTTOM", 0, -18)
-			end
-		end
-		
-		self:SetActiveStyle'Skaarj - Arenatarget'
-		for i = 1, 5 do
-			arenatarget[i] = self:Spawn("arena"..i.."target", "oUF_SkaarjArena"..i.."target")
-			if i == 1 then
-				arenatarget[i]:SetPoint("TOPLEFT", arena[i], "TOPRIGHT", 5, 0)
-			else
-				arenatarget[i]:SetPoint("TOP", arenatarget[i-1], "BOTTOM", 0, -18)
-			end
-		end
-	end
 	
     if cfg.party then
   
