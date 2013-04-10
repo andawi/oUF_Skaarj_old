@@ -28,7 +28,6 @@ cfg.scale = 1
 
 cfg.party = false
 cfg.raid = true	
-cfg.boss = true
 cfg.tank = false
   
 --player, target, focus 
@@ -40,10 +39,6 @@ cfg.specific_power_height = 6
 cfg.raid_width = 140
 cfg.raid_health_height = 38
 cfg.raid_power_height = 3
---boss
-cfg.boss_width = 170
-cfg.boss_health_height = 30
-cfg.boss_power_height = 3
 
 --party, tank
 cfg.party_width = 170
@@ -72,7 +67,6 @@ cfg.AltPowerBar_Height = 12
               Focus = { x= -260, y=  100},  
         Focustarget = { x=    0, y=  -65},  
                 Pet = { x=	  0, y=  -65},  
-               Boss = { x=  -300,y=  250},  
                Tank = { x=	 10, y=  100},  
                Raid = { x=	 0, y=  -150},   
 	          Party = { x=	 10, y=  250},		  
