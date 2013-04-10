@@ -35,6 +35,7 @@ local range = {
 	ns.arrowmouseover = true
 	ns.arrowmouseoveralways = false
 
+
 local Highlight = function(self) 
     self.Highlight = self:CreateTexture(nil, 'HIGHLIGHT')
 	self.Highlight:SetAllPoints(self)
@@ -970,22 +971,24 @@ local UnitSpecific = {
 		self.DebuffHighlight:SetBlendMode('ADD')
 		self.DebuffHighlightAlpha = 1
 		
+		--[[
 		self.AuraStatusBL = self.Health:CreateFontString(nil, "OVERLAY")
 		self.AuraStatusBL:ClearAllPoints()
 		self.AuraStatusBL:SetPoint("TOPRIGHT",-1, -1)
 		self.AuraStatusBL:SetFont(cfg.squares, 10, "OUTLINE")
 		self:Tag(self.AuraStatusBL, "[skaarj:fort]")
-			
+		]]
+		
 		self.AuraStatusRT = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		self.AuraStatusRT:ClearAllPoints()
-		self.AuraStatusRT:SetPoint("TOPRIGHT",-6, -2)
+		self.AuraStatusRT:SetPoint("TOPRIGHT",-8, -2)
 		self.AuraStatusRT.frequentUpdates = 0.1
 		self.AuraStatusRT:SetAlpha(.6)
 		self:Tag(self.AuraStatusRT, "[skaarj:DA]")
 		
 		self.AuraStatusSS = fs(self.Health, "OVERLAY", cfg.font, cfg.fontsize, cfg.fontflag, 1, 1, 1)
 		self.AuraStatusSS:ClearAllPoints()
-		self.AuraStatusSS:SetPoint("BOTTOMRIGHT",-6, 0)
+		self.AuraStatusSS:SetPoint("BOTTOMRIGHT",-8, 0)
 		self.AuraStatusSS.frequentUpdates = 0.1
 		self.AuraStatusSS:SetAlpha(.6)
 		self:Tag(self.AuraStatusSS, "[skaarj:SS]")
@@ -1194,5 +1197,25 @@ oUF:Factory(function(self)
 				end
 			end
 		end
+	end
+end)
+
+
+local Check_Role = CreateFrame("Frame")
+Check_Role:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+Check_Role:RegisterEvent("ADDON_LOADED")
+
+Check_Role:SetScript("OnEvent", function(self, event)
+	
+	print("Check_Role")
+	local id, name, description, icon, background, role = GetSpecializationInfo(GetSpecialization())
+	if role == 'HEALER' then
+		print('oUF RAIDFRAMES enabled --> reload UI')
+		cfg.disableRaidFrameManager = true
+		cfg.raid = true
+	else
+		print('oUF RAIDFRAMES disabled --> reload UI')
+		cfg.disableRaidFrameManager = false
+		cfg.raid = false
 	end
 end)
