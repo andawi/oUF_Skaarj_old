@@ -100,6 +100,90 @@ cfg.DebuffHighlightFilter = true
  cfg.anyUnit = true
  
 cfg.spellIDs = {
+
+	--SPELL ID, size, X-POS, Y-POS, anyUnit, ALPHA, Class
+	
+	{6788, 		19, 36, 6, true, 0.75, 'PRIEST'},			-- Weakened Soul (lowest frame level)
+	{77613, 	13, 8, 12, false, 1, 'PRIEST'},				-- Grace
+	{33076, 	13, 22, 12, false, 1, 'PRIEST'},			-- Prayer of Mending
+	{17, 		13, 36, 12, true, 1, 'PRIEST'},				-- Power Word: Shield
+	{139, 		13, 50, 12, false, 1, 'PRIEST'}, 			-- Renew
+	
+	--POS1 (18, 0) - personal Defensive CDs #1
+	{642, 		26, 18, 0, true, 1, 'GENERIC'}, 			-- Divine Shield (100%; 5min)
+	{871, 		26, 18, 0, true, 0.85, 'GENERIC'}, 			-- Shield Wall (40%; 5min)
+	{61336, 	26, 18, 0, true, 0.85, 'GENERIC'},			-- Survival Instincts (50%; 3min)		
+	{19263, 	26, 18, 0, true, 0.85, 'GENERIC'},			-- Deterrence (100% deflect; 30% AoE; 2min)
+	{45438, 	26, 18, 0, true, 0.85, 'GENERIC'},			-- Iceblock (100%; 5min)
+	{30823, 	26,	18, 0, true, 0.85, 'GENERIC'},			-- Shamanistic Rage (30%; 1min CD)
+	{108271, 	26, 18, 0, true, 0.85, 'GENERIC'},			-- Astral Shift (40%, 2min CD)
+	{48792, 	26, 18, 0, true, 0.85, 'GENERIC'},			-- Icebound Fortitude (20%; 3min)
+	
+	
+	--POS2 (32, 0) - personal Defensive CDs #2
+	{86659, 	26, 32, 0, true, 0.85, 'GENERIC'},			-- Guardian of Ancient Kings (50%; 3min; PROT)
+	{12975, 	26, 32, 0, true, 0.85, 'GENERIC'},			-- Last Stand (+30% HP; 3min CD)
+	{106922, 	26, 32, 0, true, 0.85, 'GENERIC'},			-- Might of Ursoc (+30% HP; 3min CD)
+	{48707,		25, 32, 0, true, 0.85, 'GENERIC'}, 			-- Anti-magic Shell
+	
+	--POS3 (46, 0) - personal Defensive CDs #3
+	{31850,		26, 46, 0, true, 0.85, 'GENERIC'},			-- Ardent Defender (20%; 3min CD; lifesaver)
+	{22812, 	26, 46, 0, true, 0.85, 'GENERIC'},			-- Barkskin (20%; 1min)
+	{55233, 	26, 46, 0, true, 0.85, 'GENERIC'}, 			-- Vampiric Blood	
+	
+	--POS4 (60, 0) - personal Defensive CDs #4
+	{498, 		26, 60, 0, true, 0.85, 'GENERIC'},  		-- Divine Protection (40%; 1min CD)
+	
+
+	--POS5 (74, 0)
+	{31821,		26, 74, 0, true, 0.85, 'GENERIC'},			-- Devotion Aura (20%; 3min; magic)
+	{1022, 		26, 74, 0, true, 0.85, 'GENERIC'},			-- Hand of Protection
+	{6940, 		26, 74, 0, true, 0.85, 'GENERIC'},			-- Hand of Sacrifice
+	
+	--POS6 (88, 0)
+	{114052,	26,	88, 0, true, 0.85, 'GENERIC'},			-- Ascendance (Resto Shaman Heal CD)
+	{33891,		26, 88, 0, true, 0.85, 'GENERIC'},			-- Tree Form (Resto Druid)
+	{31884,		26, 88, 0, true, 0.85, 'GENERIC'},			-- Avenging Wrath (Pala Heal CD)
+
+	--POS7 (102, 0)
+	{81782,		26, 102, 0, true, 0.85, 'GENERIC'},			-- Power Word Barrier
+
+	-- POS8 (116, 0) overlap w/ POS7
+	{740, 		26, 108, 0, true, 0.85, 'GENERIC'},			-- Tranquility
+	
+	-- POS9
+	{97462, 	20, 112, 0, true, 0.85, 'GENERIC'},			-- Rallying Cry
+	
+	
+	-- POS10 (122, 0) - last POS
+	{33206, 	26, 122, 0, true, 0.85, 'GENERIC'},			-- Pain Suppress
+	{102342, 	26, 122, 0, true, 0.85, 'GENERIC'},			-- Ironbark (20%; 2min; RESTO)
+	{47788, 	26, 122, 0, true, 0.85, 'GENERIC'},			-- Guardian Spirit
+	
+	
+	-- Mana CDs @ Mana Bar
+	{64901,   	20, 125, -15, true, 0.85, 'GENERIC'},		-- Hymn of Hope
+	{29166,		20, 125, 0, true, 0.85, 'GENERIC'},			-- Innervate
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+
+
+
+
+--[[
 	DRUID = {
 	{94447, {0.2, 0.8, 0.2}},			    -- Lifebloom
 	{8936, {0.8, 0.4, 0}, "TOPLEFT"},			-- Regrowth
@@ -124,61 +208,7 @@ cfg.spellIDs = {
 	{53563, {0.7, 0.3, 0.7}, "TOPRIGHT"},   -- Beacon of Light
 	},
 	
-	--SPELL ID, size, X-POS, Y-POS, anyUnit, ALPHA
-	PRIEST = {
 	
-	{77613, 13, 8, 12, false},				-- Grace
-	{33076, 13, 22, 12, false},				-- Prayer of Mending
-	{17, 13, 36, 12, true},					-- Power Word: Shield
-	{139, 13, 50, 12, false}, 				-- Renew
-		
-	--POS1 - personal CDs
-	
-	{642, 25, 18, 0, true, 0.75}, 			-- Divine Shield (50%)
-	{871, 25, 18, 0, true, 0.75}, 			-- Shield Wall (50%)
-	{61336, 25, 18, 0, true, 0.75},		-- Survival Instincts		
-	{48792, 25, 18, 0, true, 0.75},		-- Icebound Fortitude
-	{19263, 25, 18, 0, true, 0.75},		-- Deterrence
-	{45438, 25, 18, 0, true, 0.75},		-- Iceblock
-
-	--POS2
-	{64901, 25, 30, 0, true, 0.75},		-- Hymn of Hope
-	{29166,	17, 30, 0, true, 0.75},		-- Innervate
-	
-	--POS3
-	{31850,	25, 42, 0, true, 0.75},		-- Ardent Defender
-	{106922, 25, 42, 0, true, 0.75},		-- Might of Ursoc
-	{55233, 17, 42, 0, true, 0.75}, 		-- Vampiric Blood
-	
-
-	--POS4
-	{81782,	25, 64, 0, true, 0.75},		-- Power Word Barrier
-	{86659, 20, 64, 0, true, 0.75},		--Guardian of Ancient Kings
-	
-
-	--POS5
-	{31821,	25, 76, 0, true, 0.75},		-- Devotion Aura
-	{1022, 17, 75, 0, true, 0.75},		-- Hand of Protection
-	{6940, 17, 75, 0, true, 0.75},		-- Hand of Sacrifice
-	
-	--POS6
-	{33206, 25, 88, 0, false, 0.75},		-- Pain Suppress
-	{47788, 25, 88, 0, false, 0.75},		-- Guardian Spirit
-	
-	
-	--POS7
-	{740, 25, 100, 0, true, 0.75},			-- Tranquility
-	
-	-- POSx
-	{498, 25, 112, 0, true, 0.75},  		-- Divine Protection
-	{22812, 25, 112, 0, true, 0.75},		-- Barkskin
-	{102342, 20, 112, 0, true, 0.75},		-- Ironbark 
-	{12975, 25, 112, 0, true, 0.75},		-- Last Stand
-	{48707,	25, 112, 0, true, 0.75}, 		-- Anti-magic Shell
-	{97462, 20, 112, 0, true, 0.75},		-- Rallying Cry 
-
-	{6788, 20, 36, 0, true, 0.5},				-- Weakened Soul
-	},
 	
 	SHAMAN = {
 	{974, {0.2, 0.7, 0.2}},				  -- Earth Shield
@@ -204,6 +234,7 @@ cfg.spellIDs = {
 	{114030, {0.2, 0.2, 1}},			  -- Vigilance
 	{3411, {0.89, 0.1, 0.1}, "TOPRIGHT"}, -- Intervene
 	},
+	]]
  }
  
  
@@ -214,8 +245,6 @@ cfg.spellIDs = {
 		
 		
 		--Misc
-		
-		
 		['Tricked or Treated'] = true,
 		['Upset Tummy'] = true,
 		['Deserter'] = true,
@@ -279,7 +308,6 @@ cfg.spellIDs = {
 			
 		--T13
 		['Degradation'] = true,
-		
 		['Transporter Malfunction'] = true,
 			
 	}
