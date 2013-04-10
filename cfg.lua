@@ -30,7 +30,6 @@ cfg.party = false
 cfg.raid = true	
 cfg.boss = true
 cfg.tank = false
-cfg.arena = true
   
 --player, target, focus 
 cfg.width = 250 
@@ -45,10 +44,7 @@ cfg.raid_power_height = 3
 cfg.boss_width = 170
 cfg.boss_health_height = 30
 cfg.boss_power_height = 3
---arena
-cfg.arena_width = 170
-cfg.arena_health_height = 30
-cfg.arena_power_height = 3
+
 --party, tank
 cfg.party_width = 170
 cfg.party_health_height = 30
@@ -79,8 +75,7 @@ cfg.AltPowerBar_Height = 12
                Boss = { x=  -300,y=  250},  
                Tank = { x=	 10, y=  100},  
                Raid = { x=	 0, y=  -150},   
-	          Party = { x=	 10, y=  250},
-              Arena = { x= -300, y=  250},			  
+	          Party = { x=	 10, y=  250},		  
 }
 
   -----------------------------
