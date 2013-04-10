@@ -258,11 +258,11 @@ local createAuraWatch = function(self, unit)
 	if cfg.showAuraWatch then
 		local auras = CreateFrame("Frame", nil, self)
 		auras:SetAllPoints(self.Health)
-		auras.onlyShowPresent = cfg.onlyShowPresent
-		--auras.anyUnit = cfg.anyUnit
+		auras.onlyShowPresent = true
 		auras.icons = {}
 		auras.hideCooldown = true			-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
 		auras.PostCreateIcon = AWIcon
+		auras:SetFrameStrata('HIGH')
 		
 		for i, v in pairs(cfg.spellIDs) do
 			if (v[7] == class) or (v[7] == 'GENERIC') then
@@ -295,7 +295,6 @@ local createAuraWatch = function(self, unit)
 				cd:SetAllPoints(icon)
 				cd:SetFrameLevel(i)
 				icon.cd = cd
-				
 				
 				auras.icons[v[1]] = icon
 			end
