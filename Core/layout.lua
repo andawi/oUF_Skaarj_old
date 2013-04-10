@@ -1160,7 +1160,6 @@ local UnitSpecific = {
 }
 
 UnitSpecific.focustarget = UnitSpecific.pet
-UnitSpecific.maintank = UnitSpecific.party
 
 oUF:RegisterStyle("Skaarj", Shared)
 
@@ -1213,19 +1212,6 @@ oUF:Factory(function(self)
 	    'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.party_width, cfg.party_health_height+cfg.party_power_height+1))
         party:SetPoint("LEFT", UIParent, cfg.unit_positions.Party.x, cfg.unit_positions.Party.y)
     end
-	
-	if cfg.tank then
-	
-	    self:SetActiveStyle'Skaarj - Maintank'
-
-	    local maintank = self:SpawnHeader('oUF_MainTank', nil, 'raid',
-	    'oUF-initialConfigFunction', ([[self:SetWidth(%d) self:SetHeight(%d)]]):format(cfg.party_width, cfg.party_health_height+cfg.party_power_height+1),
-	    'showRaid', true,
-	    'groupFilter', 'MAINTANK',
-	    'yOffset', 20,
-	    'point' , 'BOTTOM')
-	    maintank:SetPoint("LEFT", UIParent, cfg.unit_positions.Tank.x, cfg.unit_positions.Tank.y)
-	end
 	
 	if cfg.disableRaidFrameManager then
 	    CompactRaidFrameManager:UnregisterAllEvents()
