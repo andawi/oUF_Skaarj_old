@@ -258,44 +258,46 @@ local createAuraWatch = function(self, unit)
 		local auras = CreateFrame("Frame", nil, self)
 		auras:SetAllPoints(self.Health)
 		auras.onlyShowPresent = cfg.onlyShowPresent
-		auras.anyUnit = cfg.anyUnit
+		--auras.anyUnit = cfg.anyUnit
 		auras.icons = {}
 		auras.hideCooldown = true			-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
 		auras.PostCreateIcon = AWIcon
 		
-		for i, v in pairs(cfg.spellIDs[class]) do
-			local icon = CreateFrame("Frame", nil, auras)
-			icon.spellID = v[1]
-			icon:SetSize(v[2], v[2])
-			icon:SetFrameLevel(i)
-			
-			if v[3] then
-			    icon:SetPoint('CENTER', self, 'LEFT', v[3], v[4])
-			else
-			    icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
+		for i, v in pairs(cfg.spellIDs) do
+			if (v[7] == class) or (v[7] == 'GENERIC') then
+				local icon = CreateFrame("Frame", nil, auras)
+				icon.spellID = v[1]
+				icon:SetSize(v[2], v[2])
+				icon:SetFrameLevel(i)
+				
+				if v[3] then
+					icon:SetPoint('CENTER', self, 'LEFT', v[3], v[4])
+				else
+					icon:SetPoint("BOTTOMLEFT", self.Health, "BOTTOMRIGHT", -7 * i, 0)
+				end
+		
+				if v[5] then auras.anyUnit = v[5] end
+				
+				local name, _, image = GetSpellInfo(v[1])
+				local tex = icon:CreateTexture(nil, "OVERLAY")
+				tex:SetTexCoord(.07, .93, .07, .93)
+				tex:SetAllPoints(icon)
+				tex:SetTexture(image)
+				
+				icon.icon = tex
+				
+				if v[6] then icon.icon:SetAlpha(v[6]) end		
+				
+				icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
+				
+				local cd = CreateFrame("Cooldown", nil, icon)
+				cd:SetAllPoints(icon)
+				cd:SetFrameLevel(i)
+				icon.cd = cd
+				
+				
+				auras.icons[v[1]] = icon
 			end
-	
-			if v[5] then auras.anyUnit = v[5] end
-			
-			local name, _, image = GetSpellInfo(v[1])
-			local tex = icon:CreateTexture(nil, "OVERLAY")
-			tex:SetTexCoord(.07, .93, .07, .93)
-			tex:SetAllPoints(icon)
-			tex:SetTexture(image)
-			
-			icon.icon = tex
-			
-			if v[6] then icon.icon:SetAlpha(v[6]) end		
-			
-			icon.hideCooldown = true		-- org. AuraWatch cd frame will overlap each other - thus create own frame for this
-			
-			local cd = CreateFrame("Cooldown", nil, icon)
-			cd:SetAllPoints(icon)
-			cd:SetFrameLevel(i)
-			icon.cd = cd
-			
-			
-			auras.icons[v[1]] = icon
 		end
 		self.AuraWatch = auras
 	end
