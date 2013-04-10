@@ -26,7 +26,6 @@ local OnLeave = function(self)
 			end
 end
 
-
 local range = {
         insideAlpha = 1,
         outsideAlpha = .25,
@@ -35,9 +34,6 @@ local range = {
 	ns.RangeArrowScale = 0.7
 	ns.arrowmouseover = true
 	ns.arrowmouseoveralways = false
-	
-	
-
 
 local Highlight = function(self) 
     self.Highlight = self:CreateTexture(nil, 'HIGHLIGHT')
@@ -46,8 +42,6 @@ local Highlight = function(self)
 	self.Highlight:SetTexture(cfg.highlightBorder)
 	self.Highlight:SetVertexColor(1, 1, 1, 0.25)
 end
-
-
 
 local ChangedTarget = function(self)
     if UnitIsUnit('target', self.unit) then
@@ -122,24 +116,6 @@ local FormatTime = function(s)
     end
 
     return format("%d", fmod(s, minute))
-end
-
-
-
-local UpdateAuraTrackerTime = function(self, elapsed)
-	if self.active then
-		self.timeleft = self.timeleft - elapsed
-		if self.timeleft <= 5 then
-			self.text:SetTextColor(1, 0, 0) 
-		else
-			self.text:SetTextColor(1, 1, 1) 
-		end
-		if self.timeleft <= 0 then
-			self.icon:SetTexture('')
-			self.text:SetText('')
-		end	
-		self.text:SetFormattedText('%.1f', self.timeleft)
-	end
 end
 
 local auraIcon = function(auras, button)
@@ -219,7 +195,6 @@ local CustomFilter = function(icons, ...)
     end
 end
 
-
 local PostAltUpdate = function(self, min, cur, max)
     local per = math.floor((cur/max)*100)		
 	if per < 30 then
@@ -263,28 +238,12 @@ local UpdateComboPoint = function(self, event, unit)
 end
 
 local AWIcon = function(AWatch, icon, spellID, name, self)			
-	--[[
-	 icon.glow = CreateFrame("Frame", nil, icon)
-     icon.glow:SetPoint("TOPLEFT", icon, "TOPLEFT", -4, 4)
-     icon.glow:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 4, -4)
-     icon.glow:SetFrameLevel(icon:GetFrameLevel()-1)
-     icon.glow:SetBackdrop({bgFile = "", edgeFile = "Interface\\AddOns\\Media\\glowTex",
-     edgeSize = 5,insets = {left = 3,right = 3,top = 3,bottom = 3,},})
-	 icon.glow:SetBackdropBorderColor(0,0,0,1)
-	]]
+	
 	icon:SetBackdrop(backdrop_1px)
     icon:SetBackdropColor(0,0,0,0.5)
-	 
-	 
 	icon.cd:SetReverse(true)
 	
 end
-
-
-
-
-
-
 
 local CustomDebuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster)
 	
@@ -293,8 +252,6 @@ local CustomDebuffFilter = function(icons, unit, icon, name, rank, texture, coun
 	end
 		
 end
-
-
 
 local createAuraWatch = function(self, unit)
 	if cfg.showAuraWatch then
@@ -372,18 +329,12 @@ local Healcomm = function(self)
 	
 	local mhpb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
 	mhpb:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT', 0, -1)
-	--mhpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 1)
-	--mhpb:SetWidth(10)
 	mhpb:SetHeight(self.Health:GetHeight()*0.5)
-	--mhpb:SetStatusBarTexture(predhealthtex)
 	mhpb:SetStatusBarColor(0, 1, 0, 0.33)
 	
 	local ohpb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
-	--ohpb:SetPoint('TOPLEFT', mhpb:GetStatusBarTexture(), 'TOPRIGHT', 0, 0)
 	ohpb:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'BOTTOMRIGHT', 0, 1)
-	--ohpb:SetWidth(10)
 	ohpb:SetHeight(self.Health:GetHeight()*0.5)
-	--ohpb:SetStatusBarTexture(predhealthtex)
 	ohpb:SetStatusBarColor(0, 1, 0, 0.25)
 	
 	self.HealPrediction = {
@@ -395,26 +346,6 @@ local Healcomm = function(self)
 	self.MyHealBar = mhpb
 	self.OtherHealBar = ohpb
 	
-	
-	
-	--[[
-	local mhb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
-	mhb:SetPoint("TOPLEFT", self.Health:GetStatusBarTexture(), "TOPRIGHT")
-	mhb:SetPoint("BOTTOMLEFT", self.Health:GetStatusBarTexture(), "BOTTOMRIGHT")
-
-	local ohb = createStatusbar(self.Health, cfg.texture, nil, nil, self:GetWidth(), 0.33, 0.59, 0.33, 0.75)
-	ohb:SetPoint("TOPLEFT", self.Health:GetStatusBarTexture(), "TOPRIGHT")
-	ohb:SetPoint("BOTTOMLEFT", self.Health:GetStatusBarTexture(), "BOTTOMRIGHT")
-
-    self.HealPrediction = {
-	myBar = mhb,
-	otherBar = ohb,
-	maxOverflow = 1,}
-			
-	self.MyHealBar = mhb
-	self.OtherHealBar = ohb
-	
-	]]
 end
 
 local Setfocus = function(self) 
@@ -438,20 +369,12 @@ end
 
 local Shared = function(self, unit)
 
-    --self.menu = menu
-	
-	--self:SetBackdrop(backdrop)
-	--self:SetBackdropColor(0, 0, 0, 1)
-	
     self:SetScript("OnEnter", OnEnter)
     self:SetScript("OnLeave", OnLeave)
     self:RegisterForClicks"AnyUp"
 	
     self.framebd = framebd(self, self)		--extra Frame Backdrop...
 	
-	
-	
-		
 -- Arrows
 		local frame = CreateFrame("Frame", nil, UIParent)
 		frame:SetAllPoints(self)
@@ -466,23 +389,16 @@ local Shared = function(self, unit)
 		self.freebarrow = frame
 		self.freebarrow:Hide()
 		
-	
 	self.freebRange = range
-
 
 	self.DebuffHighlight = cfg.DebuffHighlight
 	self.DebuffHighlightFilter = cfg.DebuffHighlightFilter
-	
-
-	
-	
 
     local h = createStatusbar(self, cfg.texture, nil, nil, nil, cfg.Color.Health.r, cfg.Color.Health.g, cfg.Color.Health.b, 1)
     h:SetPoint"TOP"
 	h:SetPoint"LEFT"
 	h:SetPoint"RIGHT"
-	
-	
+
 	local hbg = h:CreateTexture(nil, "BACKGROUND")
     hbg:SetAllPoints(h)
     hbg:SetTexture(cfg.texture)
@@ -497,15 +413,12 @@ local Shared = function(self, unit)
 		hbg:SetVertexColor(.5, .5, .5, .25)
     end
 	
-	
-	
 	if cfg.Smooth then h.Smooth = true end
 	
 	h.bg = hbg
     self.Health = h
 	h.PostUpdate = PostUpdateHealth
 
-	
 		oUF.colors.smooth = {1, 0, 0, 0.75, 0, 0, 0.15, 0.15, 0.15}
 		self.Health.colorSmooth = true
 	
@@ -561,7 +474,6 @@ local Shared = function(self, unit)
 	    a:SetPoint("BOTTOMLEFT", h, "TOPLEFT", -2, -4)
         a:SetSize(16, 16)
 	end
-	--self.Assistant = a
 
 	local rc = h:CreateTexture(nil, "OVERLAY")
 	rc:SetSize(14, 14)
@@ -690,8 +602,7 @@ local UnitSpecific = {
                     self.Runes = b
                 end
             end
-		
-		    			
+			    			
 			if class == "PRIEST" then
 			    sob = CreateFrame("Frame", self:GetName().."_ShadowOrbsBar", self)
 				sob:SetFrameStrata("LOW")
@@ -1085,10 +996,7 @@ local UnitSpecific = {
 		self.AuraStatusSS.frequentUpdates = 0.1
 		self.AuraStatusSS:SetAlpha(.6)
 		self:Tag(self.AuraStatusSS, "[skaarj:SS]")
-		
-	
-		
-		
+
 		local name = fs(self.Health, "OVERLAY", cfg.fontB, 13)
 		name:SetPoint("TOPLEFT", self.Health, 3, -4)
 	    name:SetJustifyH"LEFT"
@@ -1116,8 +1024,7 @@ local UnitSpecific = {
 		
 		Resurrect(self)
 		createAuraWatch(self)
-		
-	    
+
 		local debuffs = CreateFrame("Frame", nil, self)
 			debuffs:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", 4, 3)
 			debuffs:SetFrameStrata('TOOLTIP')
@@ -1132,7 +1039,6 @@ local UnitSpecific = {
 			debuffs.PostCreateIcon = auraIcon
             debuffs.PostUpdateIcon = PostUpdateIcon
 		self.Debuffs = debuffs
-		
 		
 		local tborder = CreateFrame("Frame", nil, self)
         tborder:SetPoint("TOPLEFT", self, "TOPLEFT")
@@ -1190,7 +1096,6 @@ oUF:Factory(function(self)
     spawnHelper(self, "focustarget", "LEFT", "oUF_SkaarjFocus", cfg.unit_positions.Focustarget.x, cfg.unit_positions.Focustarget.y)
     spawnHelper(self, "pet", "LEFT", "oUF_SkaarjPlayer", cfg.unit_positions.Pet.x, cfg.unit_positions.Pet.y)
 
-    
     if cfg.party then
   
         self:SetActiveStyle'Skaarj - Party'
@@ -1295,8 +1200,6 @@ oUF:Factory(function(self)
 					raidgroup:SetAlpha(1)
 				end
 			end
-		
-		
 		end
 	end
 end)
